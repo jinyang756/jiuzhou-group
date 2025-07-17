@@ -4,299 +4,343 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>九州集团 | Jiuzhou Group</title>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* --- 核心修改：色彩体系更新为 Dark Amber --- */
-            --bg-color-dark: #15140F; /* Dark Amber 的基色 */
-            --text-color: #e0e0e0;
-            --accent-color: #bfa374;
-            --font-serif: 'Noto Serif SC', serif;
-            --font-sans: 'Inter', sans-serif;
-            --transition-speed: 0.5s;
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background-color: #15140F;
+            color: rgba(255, 255, 255, 0.7);
+            overflow-x: hidden;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: var(--bg-color-dark);
-            color: var(--text-color);
-            font-family: var(--font-sans);
-            font-weight: 300;
-        }
-
-        .kyushu-world {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
-        
-        .background-layer {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            /* --- 核心修改：应用 Dark Amber 渐变 --- */
-            background-image: linear-gradient(-180deg, #15140F 0%, #34312C 97%);
-            z-index: -1;
-        }
-
-        .main-nav {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 2rem;
-            z-index: 100;
-            display: flex;
-            gap: 2rem;
-            opacity: 0;
-            animation: fadeInNav 2s ease-in-out 3s forwards;
-        }
-
-        .nav-link {
-            font-family: var(--font-serif);
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-color);
-            text-decoration: none;
-            position: relative;
-            transition: color var(--transition-speed) ease;
-            cursor: pointer;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--accent-color);
-            transition: width var(--transition-speed) ease;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .page-section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 8rem 10%;
-            overflow-y: auto;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        .text-accent { color: #bfa374; }
+        .border-accent { border-color: #bfa374; }
+        .bg-dark-amber { background-image: linear-gradient(-180deg, #15140F 0%, #34312C 97%); }
+        .scene {
+            min-height: 100vh;
+            width: 100vw;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            padding: 5rem 2rem;
+            position: relative;
         }
-
-        .page-section.active {
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in.visible {
             opacity: 1;
-            visibility: visible;
+            transform: translateY(0);
         }
-        
-        .page-title {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            color: var(--accent-color);
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
         }
-
-        .page-content {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -20px); }
+            60% { transform: translate(-50%, -10px); }
         }
-
-        /* --- 特定厅室样式 --- */
-        #foyer .page-content { display: flex; justify-content: center; align-items: center; height: 100%; }
-        #foyer .charter-quote { font-family: var(--font-serif); font-size: 3.5rem; font-weight: 400; text-shadow: 0 0 20px rgba(255, 255, 255, 0.2); animation: fadeInText 4s ease-in-out forwards; }
-        #charter .charter-article { margin-bottom: 2.5rem; text-align: left; border-left: 2px solid var(--accent-color); padding-left: 2rem; }
-        #charter .article-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        #charter .article-text { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; }
-        #governance p { font-size: 1.2rem; line-height: 2; margin-bottom: 2rem; }
-        
-        #ecosystem .subsidiary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; width: 100%; }
-        .subsidiary-card { border: 1px solid rgba(191, 163, 116, 0.2); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease; }
-        .subsidiary-card:hover { background-color: rgba(191, 163, 116, 0.05); transform: translateY(-10px); }
-        .subsidiary-card h3 { font-family: var(--font-serif); font-size: 1.8rem; color: var(--accent-color); margin-bottom: 1rem; }
-        .subsidiary-card p { font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
-        
-        .product-links { display: flex; gap: 1rem; margin-top: auto; }
-        .product-button {
-            flex-grow: 1;
-            padding: 0.75rem;
-            border: 1px solid rgba(191, 163, 116, 0.5);
-            color: rgba(191, 163, 116, 0.8);
-            background-color: transparent;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        .governance-circle .seat {
+            position: absolute;
+            width: 80px; height: 80px;
+            border: 2px solid rgba(191, 163, 116, 0.3);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
         }
-        .product-button:hover {
-            background-color: rgba(191, 163, 116, 0.1);
-            color: var(--accent-color);
+        .governance-circle .seat:hover {
+            border-color: #bfa374;
+            transform: scale(1.1);
+            z-index: 10;
         }
-
-        #calling .calling-text { font-family: var(--font-serif); font-size: 1.5rem; line-height: 2.2; margin-bottom: 3rem; }
-        .cta-button { padding: 1rem 3rem; border: 1px solid var(--accent-color); color: var(--accent-color); background-color: transparent; font-family: var(--font-serif); font-size: 1.2rem; cursor: pointer; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; }
-        .cta-button:hover { background-color: var(--accent-color); color: var(--bg-color-dark); }
-
-        #journal .post-preview { border-bottom: 1px solid rgba(191, 163, 116, 0.2); padding: 2rem 0; text-align: left; }
-        #journal .post-title { font-family: var(--font-serif); font-size: 2rem; color: var(--text-color); margin-bottom: 0.5rem; transition: color var(--transition-speed) ease; }
-        #journal .post-preview:hover .post-title { color: var(--accent-color); }
-        #journal .post-meta { font-size: 0.9rem; color: rgba(224, 224, 224, 0.6); margin-bottom: 1rem; }
-        #journal .post-excerpt { font-size: 1.1rem; line-height: 1.7; }
-
-
-        @keyframes fadeInText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInNav { from { opacity: 0; } to { opacity: 1; } }
-
+        .ecosystem-node {
+            transition: all 0.3s ease;
+        }
+        .ecosystem-node:hover {
+            transform: scale(1.05);
+            background-color: rgba(191, 163, 116, 0.05);
+        }
+        .ecosystem-line {
+            position: absolute;
+            background-color: rgba(191, 163, 116, 0.2);
+            z-index: -1;
+        }
     </style>
 </head>
-<body>
+<body class="bg-dark-amber">
 
-    <div class="kyushu-world">
-        <div class="background-layer"></div>
+    <!-- Scene 1: The Foyer -->
+    <section id="foyer" class="scene h-screen">
+        <canvas id="particleCanvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+        <div class="z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-light fade-in">我们为探索未知而生。</h1>
+            <p class="text-lg md:text-xl text-accent mt-4 fade-in" style="transition-delay: 0.5s;">九州集团 | Jiuzhou Group</p>
+        </div>
+        <div class="scroll-indicator text-white/50 fade-in" style="transition-delay: 2s;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
 
-        <nav class="main-nav">
-            <a class="nav-link" data-target="foyer">序厅</a>
-            <a class="nav-link" data-target="charter">《宪章》</a>
-            <a class="nav-link" data-target="governance">我们的治理</a>
-            <a class="nav-link" data-target="ecosystem">生态体系</a>
-            <a class="nav-link" data-target="journal">思想源泉</a>
-            <a class="nav-link" data-target="calling">与我们同行</a>
-        </nav>
-
-        <!-- 序厅 -->
-        <section id="foyer" class="page-section active">
-            <div class="page-content">
-                <h1 class="charter-quote">我们为探索未知而生。</h1>
-            </div>
-        </section>
-
-        <!-- 宪章 -->
-        <section id="charter" class="page-section">
-            <h2 class="page-title">《九州宪章》</h2>
-            <div class="page-content">
-                <article class="charter-article"><h3 class="article-title">第一章：共生性使命</h3><p class="article-text">九州不追求一个永恒不变的、被预设的终极目标。我们的存在，是为了敏锐地洞察、并以极具创造力的方式，去回应我们时代里那些最杰出、最富探索精神的个体的深层需求。</p></article>
-                <article class="charter-article"><h3 class="article-title">第二章：四大信条</h3><p class="article-text">绝对诚信、无尽探索、底线原则、共赢生态。这是我们一切行动的准则，是我们在任何情况下都需坚守的誓言。</p></article>
-                <article class="charter-article"><h3 class="article-title">第三章：成功的定义</h3><p class="article-text">我们最大的成功，是成员因九州而变得更智慧、更强大、更完整。我们以“人的成长”与“文化印记”作为衡量伟大的标尺。</p></article>
-                <article class="charter-article"><h3 class="article-title">第四章：九州世界观</h3><p class="article-text">我们视财富为工具，视权力为责任。我们信奉“科技向善，人文向美”，并致力于创造一个科技与人文和谐共荣的未来。</p></article>
-            </div>
-        </section>
-
-        <!-- 治理 -->
-        <section id="governance" class="page-section">
-            <h2 class="page-title">我们的治理</h2>
-            <div class="page-content">
-                <p>九州集团的最高权力机构，是“九州元老院”。</p>
-                <p>我们摒弃传统的集权模式，遵循“不分高低，不做独权”的核心原则。元老院由九位“州牧”组成，他们权力平等，共同对集团的未来负责。</p>
-                <p>任何重大决议，均需获得绝对多数的赞成票方可通过。我们不依赖于某一位领袖的英明，而是依靠一个集体的智慧。这，是九州基业长青的制度保障。</p>
-            </div>
-        </section>
-
-        <!-- 生态体系 -->
-        <section id="ecosystem" class="page-section">
-            <h2 class="page-title">生态体系</h2>
-            <div class="page-content">
-                <div class="subsidiary-grid">
-                    <div class="subsidiary-card"><div><h3>贤智汇聚</h3><p>集团的人力资本与社群运营核心。负责将“九州社区”的品牌理念落地，打造高品质社群体验，连接品牌与人。</p></div></div>
-                    <div class="subsidiary-card"><div><h3>日斗投资</h3><p>集团的对外投资与资产扩张平台。负责寻找新的投资机会，为集团的扩张进行重资产布局，不断开疆拓土。</p></div></div>
-                    
-                    <div class="subsidiary-card">
-                        <div>
-                            <h3>聚财众发</h3>
-                            <p>集团的内部资本运作与财富管理平台。负责集团金融产品的设计与管理，确保帝国血液的健康流通与循环增值。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="subsidiary-card">
-                        <div>
-                            <h3>讯飞通</h3>
-                            <p>集团的技术研发与数据智能中心。负责开发与维护集团所有数字化产品，是连接一切的神经网络与技术基石。</p>
-                        </div>
-                        <div class="product-links">
-                            <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank" class="product-button">进入 九州云手机</a>
-                            <a href="https://jiuzhouguoji-clj.web.app/" target="_blank" class="product-button">探索 九州工具集</a>
-                        </div>
-                    </div>
-
-                    <div class="subsidiary-card"><div><h3>九州传媒</h3><p>集团的品牌营销与内容生态中心。负责讲述“九州”的故事，建立文化认同，是帝国的喉舌与思想阵地。</p></div></div>
+    <!-- Scene 2: The Charter -->
+    <section id="charter" class="scene">
+        <div class="text-center max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl text-accent mb-12 fade-in">《九州宪章》</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="fade-in">
+                    <h3 class="text-2xl mb-3">共生性使命</h3>
+                    <p class="text-lg leading-relaxed">我们与成员共同进化，成员的成长定义了我们的边界。</p>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl mb-3">四大信条</h3>
+                    <p class="text-lg leading-relaxed">绝对诚信、无尽探索、底线原则、共赢生态。</p>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl mb-3">成功的定义</h3>
+                    <p class="text-lg leading-relaxed">我们以“人的成长”与“文化印记”作为衡量伟大的标尺。</p>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl mb-3">九州世界观</h3>
+                    <p class="text-lg leading-relaxed">我们视财富为工具，权力为责任。信奉科技向善，人文向美。</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 思想源泉 -->
-        <section id="journal" class="page-section">
-            <h2 class="page-title">思想源泉</h2>
-            <div class="page-content">
-                <div class="post-preview"><h3 class="post-title">《主席手谕》：论“九州”的第一个十年</h3><p class="post-meta">发布于 2025年7月16日 | 分类：九州内参</p><p class="post-excerpt">在集团创立之初，我们必须明确，九州的征途并非坦途，而是星辰大海。我们选择了一条更艰难但更光荣的道路——以集体智慧代替个人权威，以成员成长定义最终成功...</p></div>
-                <div class="post-preview"><h3 class="post-title">《投资风向》：人工智能时代的文化产业变革</h3><p class="post-meta">发布于 2025年7月15日 | 分类：行业洞察</p><p class="post-excerpt">日斗投资团队认为，当前AI对文化产业的冲击并非取代，而是重构。真正的护城河不再是生产力，而是独特的审美、价值观与世界观。这恰恰是九州的核心优势...</p></div>
-                <div class="post-preview"><h3 class="post-title">《九州人物》：专访“灯塔”项目首席架构师</h3><p class="post-meta">发布于 2025年7月14日 | 分类：人物专访</p><p class="post-excerpt">“我们写的不是代码，是哲学。每一行指令，都是对《九州宪章》精神的一次转译。我们追求的不是一个网站，而是一个能与访客进行灵魂对话的数字生命体...”</p></div>
+    <!-- Scene 3: The Governance -->
+    <section id="governance" class="scene">
+        <div class="text-center w-full max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-5xl text-accent mb-4 fade-in">我们的治理</h2>
+            <p class="text-xl mb-16 max-w-2xl mx-auto fade-in">我们摒弃王座，因无人独享智慧。九席虚位以待，共同组成“九州元老院”，以集体智慧守护集团的未来。</p>
+            <div class="governance-circle relative w-[300px] h-[300px] md:w-[450px] md:h-[450px] mx-auto fade-in">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 rounded-full border border-accent flex items-center justify-center text-accent text-2xl">九州</div>
+                <!-- Seats will be populated by JS -->
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 招贤令 -->
-        <section id="calling" class="page-section">
-            <h2 class="page-title">共赴九州之约</h2>
-            <div class="page-content">
-                <p class="calling-text">我们寻找的，不是优秀的雇员，而是能与我们共赴星辰大海的“事业共同体”。</p>
-                <p class="calling-text">如果你对《九州宪章》心怀共鸣，如果你渴望在一个依靠集体智慧而非个人权威的环境中创造价值，如果你相信自己有潜力成为未来的“州牧”……</p>
-                <p class="calling-text">我们期待与你相遇。</p>
-                <button class="cta-button">递交您的远见</button>
+    <!-- Scene 4: The Ecosystem -->
+    <section id="ecosystem" class="scene">
+        <div class="text-center w-full max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl text-accent mb-4 fade-in">生态体系</h2>
+            <p class="text-xl mb-20 max-w-3xl mx-auto fade-in">五大军团各司其职，协同运作，共同服务于我们的“共生性使命”，构成一个和谐而强大的价值网络。</p>
+            <div id="ecosystem-diagram" class="relative w-full h-[500px] fade-in">
+                <div id="center-node" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-accent bg-dark-amber flex items-center justify-center text-2xl text-accent">九州</div>
+                <!-- Nodes will be populated by JS -->
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div>
+    <!-- Scene 5: The Calling -->
+    <section id="calling" class="scene bg-black/20">
+        <div class="text-center">
+            <h2 class="text-4xl md:text-5xl text-accent mb-6 fade-in">共赴九州之约</h2>
+            <p class="text-xl max-w-2xl mb-10 fade-in">我们寻找的，不是优秀的雇员，而是能与我们共赴星辰大海的“事业共同体”。</p>
+            <a href="#" id="calling-button" class="inline-block py-3 px-10 border border-accent text-accent text-xl hover:bg-accent hover:text-black transition-colors duration-300 fade-in">递交您的远见</a>
+        </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('.page-section');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('data-target');
-                    
-                    sections.forEach(section => {
-                        if (section.id === targetId) {
-                            section.classList.add('active');
-                        } else {
-                            section.classList.remove('active');
-                        }
-                    });
-                });
-            });
+    // --- Particle Canvas Animation for Foyer ---
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray;
+
+    const mouse = {
+        x: null,
+        y: null,
+        radius: (canvas.height/120) * (canvas.width/120)
+    };
+
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x;
+            this.y = y;
+            this.directionX = directionX;
+            this.directionY = directionY;
+            this.size = size;
+            this.color = color;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = 'rgba(191, 163, 116, 0.2)';
+            ctx.fill();
+        }
+        update() {
+            if (this.x > canvas.width || this.x < 0) {
+                this.directionX = -this.directionX;
+            }
+            if (this.y > canvas.height || this.y < 0) {
+                this.directionY = -this.directionY;
+            }
+            this.x += this.directionX;
+            this.y += this.directionY;
+            this.draw();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * 0.4) - 0.2;
+            let directionY = (Math.random() * 0.4) - 0.2;
+            let color = '#bfa374';
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+        }
+    }
+    
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        mouse.radius = (canvas.height/120) * (canvas.width/120);
+        initParticles();
+    });
+
+
+    // --- Scroll-based Fade-in Animation ---
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px"
+    };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
         });
-    </script>
+    }, appearOptions);
+
+    faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
+    
+    // --- Governance Circle Generation ---
+    const governanceCircle = document.querySelector('.governance-circle');
+    const seatsData = [
+        { name: '创始之火' }, { name: '贤智汇聚' }, { name: '日斗投资' },
+        { name: '聚财众发' }, { name: '讯飞通' }, { name: '九州传媒' },
+        { name: '外界之贤' }, { name: '外界之贤' }, { name: '创始之火' }
+    ];
+    const radius = governanceCircle.offsetWidth / 2 - 40;
+    const angleStep = 360 / seatsData.length;
+
+    seatsData.forEach((seat, index) => {
+        const angle = angleStep * index - 90;
+        const x = (governanceCircle.offsetWidth / 2) + radius * Math.cos(angle * Math.PI / 180) - 40;
+        const y = (governanceCircle.offsetHeight / 2) + radius * Math.sin(angle * Math.PI / 180) - 40;
+        
+        const seatEl = document.createElement('div');
+        seatEl.className = 'seat';
+        seatEl.style.left = `${x}px`;
+        seatEl.style.top = `${y}px`;
+        seatEl.textContent = seat.name;
+        governanceCircle.appendChild(seatEl);
+    });
+
+    // --- Ecosystem Diagram Generation ---
+    const ecosystemDiagram = document.getElementById('ecosystem-diagram');
+    const centerNode = document.getElementById('center-node');
+    const ecosystemNodesData = [
+        { name: '贤智汇聚', mission: '人力资本与社群运营', products: [] },
+        { name: '日斗投资', mission: '对外投资与资产扩张', products: [] },
+        { name: '聚财众发', mission: '内部资本运作与财富管理', products: [] },
+        { name: '讯飞通', mission: '技术研发与数据智能', products: ['九州云手机', '九州工具集'] },
+        { name: '九州传媒', mission: '品牌营销与内容生态', products: ['思想源泉'] }
+    ];
+    const ecoRadius = ecosystemDiagram.offsetHeight / 2 - 40;
+    const ecoAngleStep = 360 / ecosystemNodesData.length;
+
+    ecosystemNodesData.forEach((node, index) => {
+        const angle = ecoAngleStep * index - 90;
+        const x = (ecosystemDiagram.offsetWidth / 2) + ecoRadius * Math.cos(angle * Math.PI / 180) - 75; // 150/2
+        const y = (ecosystemDiagram.offsetHeight / 2) + ecoRadius * Math.sin(angle * Math.PI / 180) - 50; // 100/2
+
+        const nodeEl = document.createElement('div');
+        nodeEl.className = 'ecosystem-node absolute w-36 h-24 p-4 border border-white/10 rounded-lg flex flex-col justify-center items-center text-center';
+        nodeEl.style.left = `${x}px`;
+        nodeEl.style.top = `${y}px`;
+        
+        let productsHTML = '';
+        if (node.name === '讯飞通') {
+            productsHTML = `
+                <div class="mt-2 text-xs">
+                    <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank" class="text-accent/70 hover:text-accent">云手机</a> | 
+                    <a href="https://jiuzhouguoji-clj.web.app/" target="_blank" class="text-accent/70 hover:text-accent">工具集</a>
+                </div>
+            `;
+        }
+
+        nodeEl.innerHTML = `
+            <h4 class="font-bold text-accent text-lg">${node.name}</h4>
+            <p class="text-xs text-white/60">${node.mission}</p>
+            ${productsHTML}
+        `;
+        ecosystemDiagram.appendChild(nodeEl);
+        
+        // Draw line
+        const line = document.createElement('div');
+        const centerX = ecosystemDiagram.offsetWidth / 2;
+        const centerY = ecosystemDiagram.offsetHeight / 2;
+        const nodeCenterX = x + 75;
+        const nodeCenterY = y + 50;
+        const distance = Math.sqrt(Math.pow(nodeCenterX - centerX, 2) + Math.pow(nodeCenterY - centerY, 2));
+        const lineAngle = Math.atan2(nodeCenterY - centerY, nodeCenterX - centerX) * 180 / Math.PI;
+        
+        line.className = 'ecosystem-line';
+        line.style.width = `${distance}px`;
+        line.style.height = '1px';
+        line.style.left = `${centerX}px`;
+        line.style.top = `${centerY}px`;
+        line.style.transformOrigin = '0 0';
+        line.style.transform = `rotate(${lineAngle}deg)`;
+        ecosystemDiagram.appendChild(line);
+    });
+
+});
+</script>
 
 </body>
 </html>
