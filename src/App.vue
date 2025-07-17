@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <h1>九州集团</h1>
+    <nav style="margin-bottom: 2rem;">
+      <router-link to="/">首页</router-link> |
+      <router-link to="/ridou">日斗投资</router-link> |
+      <router-link to="/jucaizhongfa">聚财众发</router-link> |
+      <router-link to="/xunfeitong">讯飞通</router-link>
+    </nav>
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
