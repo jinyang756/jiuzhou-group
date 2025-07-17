@@ -1,7 +1,8 @@
+
 <template>
   <div class="graphite min-h-screen w-full" style="font-family: 'Inter', 'Noto Serif SC', serif; color: rgba(255,255,255,0.85);">
     <!-- 登录界面 -->
-    <div v-if="!loggedIn" id="login-screen" class="flex items-center justify-center min-h-screen p-4">
+    <div v-if="!user" class="flex items-center justify-center min-h-screen p-4">
       <div class="w-full max-w-sm mx-auto">
         <div class="text-center mb-8">
           <h1 class="text-3xl md:text-4xl font-bold text-accent">九州：枢密院</h1>
@@ -10,21 +11,29 @@
         <div class="bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg shadow-2xl p-6 md:p-8">
           <form @submit.prevent="handleLogin">
             <div class="mb-4">
-              <label for="access-code" class="block text-sm text-white/80 mb-2">访问代码</label>
-              <input type="password" id="access-code" v-model="accessCode" class="form-input w-full p-3 rounded text-center tracking-[.5em]" placeholder="••••••">
+              <label for="email" class="block text-sm text-white/80 mb-2">执政官邮箱</label>
+              <input v-model="email" type="email" id="email" class="form-input w-full p-3 rounded" placeholder="请输入授权邮箱" required />
             </div>
-            <button type="submit" class="w-full bg-accent text-gray-900 font-bold py-3 rounded hover:opacity-90 transition-opacity duration-300">授权进入</button>
+            <div class="mb-4">
+              <label for="access-code" class="block text-sm text-white/80 mb-2">访问代码</label>
+              <input v-model="password" type="password" id="access-code" class="form-input w-full p-3 rounded text-center tracking-[.5em]" placeholder="••••••" required />
+            </div>
+            <p class="text-red-400 text-sm text-center mb-4 h-5">{{ error }}</p>
+            <button type="submit" :disabled="loading" class="w-full bg-accent text-gray-900 font-bold py-3 rounded hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+              <span v-if="loading" class="w-5 h-5 border-2 border-transparent rounded-full spinner mx-auto"></span>
+              <span v-else>授权进入</span>
+            </button>
           </form>
         </div>
       </div>
     </div>
     <!-- 控制台界面 -->
-    <div v-else id="dashboard-screen" class="min-h-screen">
+    <div v-else class="min-h-screen">
       <header class="py-4 px-4 sm:px-6 lg:px-8 bg-black/20 border-b border-white/10">
         <div class="container mx-auto flex justify-between items-center">
           <h1 class="text-xl md:text-2xl font-bold text-accent">枢密院</h1>
           <div class="flex items-center gap-4">
-            <span id="currentUser" class="text-sm text-white/70">执政官</span>
+            <span class="text-sm text-white/70">{{ user?.email }}</span>
             <button @click="handleLogout" class="text-xs text-white/50 hover:text-accent transition">登出</button>
           </div>
         </div>
@@ -60,25 +69,30 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-const loggedIn = ref(false);
-const accessCode = ref('');
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 
-function handleLogin() {
-  // 真实应用应校验 accessCode，这里直接通过
-  loggedIn.value = true;
-  setTimeout(() => {
-    // 触发动画
-    document.querySelectorAll('.fade-in').forEach((el: Element) => {
-      el.classList.add('visible');
-    });
-  }, 100);
-}
-function handleLogout() {
-  loggedIn.value = false;
-  accessCode.value = '';
-}
+const firebaseConfig = {
+  apiKey: 'YOUR_API_KEY',
+  authDomain: 'YOUR_AUTH_DOMAIN',
+  projectId: 'YOUR_PROJECT_ID',
+  storageBucket: 'YOUR_STORAGE_BUCKET',
+  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+  appId: 'YOUR_APP_ID'
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const email = ref('');
+const password = ref('');
+const error = ref('');
+const loading = ref(false);
+const user = ref<User | null>(null);
 
 onMounted(() => {
+  onAuthStateChanged(auth, (u) => { user.value = u; });
   // IntersectionObserver 动画
   const faders = document.querySelectorAll('.fade-in');
   const appearOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
@@ -91,6 +105,17 @@ onMounted(() => {
   }, appearOptions);
   faders.forEach(fader => appearOnScroll.observe(fader));
 });
+
+function handleLogin() {
+  loading.value = true;
+  error.value = '';
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .catch(() => { error.value = '授权失败，请检查您的凭证。'; })
+    .finally(() => { loading.value = false; });
+}
+function handleLogout() {
+  signOut(auth);
+}
 </script>
 
 <style scoped>
@@ -132,4 +157,6 @@ onMounted(() => {
   opacity: 1;
   transform: translateY(0);
 }
+.spinner { border-top-color: #EAEAEA; animation: spin 1s linear infinite; border-width: 2px; border-style: solid; border-radius: 9999px; width: 1.25rem; height: 1.25rem; border-right-color: transparent; border-bottom-color: transparent; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
