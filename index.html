@@ -206,6 +206,13 @@
     <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-10">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-xl md:text-2xl font-bold text-accent">九州集团</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="#" class="text-white hover:text-accent transition-colors">首页</a></li>
+            <li><a href="#core-values" class="text-white hover:text-accent transition-colors">核心理念</a></li>
+            <li><a href="#" class="text-white hover:text-accent transition-colors">集团博客</a></li>
+          </ul>
+        </nav>
         </div>
     </header>
 
@@ -286,8 +293,8 @@
         <a href="#" class="dropdown-toggle text-accent hover:underline">九州工具集</a>
         <div class="dropdown-content">
             <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank">九州云手机</a>
-            <a href="https://jiuzhougroup-bsb.web.app" target="_blank">九州免费css变色版</a>
-            <a href="https://jiuzhougroup-sjksh.web.app" target="_blank">九州数据可视化工具</a>
+            <a href="https://jiuzhougroup-bsb.web.app/" target="_blank">九州免费css变色版</a>
+            <a href="https://jiuzhougroup-sjksh.web.app/" target="_blank">九州数据可视化工具</a>
         </div>
     </div>
     <p>赋能创造者的百宝匣</p>
@@ -352,5 +359,7 @@
             faders.forEach(fader => appearOnScroll.observe(fader));
         });
     </script>
-</body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
