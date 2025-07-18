@@ -1,0 +1,12 @@
+{
+  "id": "wealth_management",
+  "name": "财富管理",
+  "type": "service",
+  "description": "为客户提供专业的财富管理服务",
+  "data_flows": [
+    { "id": "needs_analysis", "name": "客户需求分析" },
+    { "id": "asset_allocation", "name": "资产配置方案" },
+    { "id": "portfolio_management", "name": "投资组合管理" },
+    { "id": "performance_evaluation", "name": "绩效评估" }
+  ]
+}

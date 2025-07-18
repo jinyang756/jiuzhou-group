@@ -1,0 +1,11 @@
+{
+  "id": "ridou",
+  "name": "日斗投资咨询管理有限公司",
+  "type": "investment",
+  "theme": "theme-investment",
+  "description": "专注于为高净值客户提供全方位财富管理服务",
+  "businesses": [
+    { "id": "wealth_management", "name": "财富管理", "type": "service" },
+    { "id": "investment_consulting", "name": "投资咨询", "type": "service" }
+  ]
+}

@@ -3,451 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>九州集团 | 官方门户</title>
+    <title>函数空间星球 | 九州集团开发者门户</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-            cursor: crosshair;
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#8B5CF6',
+                        accent: '#EC4899',
+                        dark: '#1E293B',
+                        'dark-blue': '#0F172A',
+                        'dark-purple': '#1E1B4B',
+                        'light-blue': '#DBEAFE',
+                        'light-purple': '#E9D5FF',
+                        // 九州集团主题色
+                        'group-amber': '#BFA374',
+                        'investment-gray': '#282828',
+                        'finance-brown': '#92847B',
+                        'technology-blue': '#636C75',
+                        'media-dark': '#323232',
+                        'hr-beige': '#F9F6F1',
+                        'ecommerce-light': '#E1E6EC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Noto Sans SC', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'orbit': 'orbit 60s linear infinite',
+                        'sun-pulse': 'sunPulse 6s ease-in-out infinite',
+                        'activity-glow': 'activityGlow 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        orbit: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
+                        },
+                        sunPulse: {
+                            '0%': { box-shadow: '0 0 40px rgba(191, 163, 116, 0.5), 0 0 80px rgba(191, 163, 116, 0.3), inset 0 0 20px rgba(255, 235, 205, 0.3)' },
+                            '50%': { box-shadow: '0 0 55px rgba(191, 163, 116, 0.7), 0 0 110px rgba(191, 163, 116, 0.4), inset 0 0 22px rgba(255, 235, 205, 0.4)' },
+                            '100%': { box-shadow: '0 0 40px rgba(191, 163, 116, 0.5), 0 0 80px rgba(191, 163, 116, 0.3), inset 0 0 20px rgba(255, 235, 205, 0.3)' }
+                        },
+                        activityGlow: {
+                            '0%': { box-shadow: '0 0 var(--glow-size, 15px) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 10px rgba(0,0,0,0.3)' },
+                            '50%': { box-shadow: '0 0 calc(var(--glow-size, 15px) * 1.5) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 12px rgba(0,0,0,0.4)' },
+                            '100%': { box-shadow: '0 0 var(--glow-size, 15px) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 10px rgba(0,0,0,0.3)' }
+                        }
+                    }
+                }
+            }
         }
-        h1, h2, h3, h4 { font-family: 'Noto Serif SC', serif; }
-
-        #three-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            .glow {
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            }
+            .glow-blue {
+                box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+            }
+            .glow-purple {
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+            }
+            .glow-accent {
+                box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+            }
+            .glow-amber {
+                box-shadow: 0 0 15px rgba(191, 163, 116, 0.7);
+            }
+            .orbit-path {
+                border: 1px dashed rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .scrollbar-hidden::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hidden {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .function-panel {
+                transition: all 0.3s ease;
+            }
+            .function-panel:hover {
+                transform: translateY(-5px);
+            }
+            .function-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-out;
+            }
+            .function-panel.active .function-content {
+                max-height: 1000px;
+                transition: max-height 0.5s ease-in;
+            }
+            .function-toggle {
+                transition: transform 0.3s ease;
+            }
+            .function-panel.active .function-toggle {
+                transform: rotate(180deg);
+            }
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        #galaxy-wrapper {
-            position: relative;
-            z-index: 10;
-        }
-
-        #galaxy-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: transform 1.2s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 1s ease;
-        }
-
-        .celestial-body {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            will-change: transform;
-        }
-        
-        .sun {
-            width: 140px; height: 140px;
-            background-image: radial-gradient(circle, #d4c2a0, #bfa374, #34312C);
-            border: 1px solid rgba(191, 163, 116, 0.5);
-            animation: sun-pulse 6s ease-in-out infinite;
-        }
-        @keyframes sun-pulse {
-            0% { box-shadow: 0 0 40px rgba(191, 163, 116, 0.5), 0 0 80px rgba(191, 163, 116, 0.3), inset 0 0 20px rgba(255, 235, 205, 0.3); }
-            50% { box-shadow: 0 0 55px rgba(191, 163, 116, 0.7), 0 0 110px rgba(191, 163, 116, 0.4), inset 0 0 22px rgba(255, 235, 205, 0.4); }
-            100% { box-shadow: 0 0 40px rgba(191, 163, 116, 0.5), 0 0 80px rgba(191, 163, 116, 0.3), inset 0 0 20px rgba(255, 235, 205, 0.3); }
-        }
-        .sun:hover { 
-            animation-play-state: paused;
-            box-shadow: 0 0 60px rgba(191, 163, 116, 0.8), 0 0 120px rgba(191, 163, 116, 0.5), inset 0 0 25px rgba(255, 235, 205, 0.5); 
-        }
-
-        .planet {
-            width: 90px; height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 0.8rem;
-            padding: 0.5rem;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3);
-            overflow: hidden;
-            animation: activity-glow 4s ease-in-out infinite;
-        }
-
-        @keyframes activity-glow {
-            0% { box-shadow: 0 0 var(--glow-size, 15px) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 10px rgba(0,0,0,0.3); }
-            50% { box-shadow: 0 0 calc(var(--glow-size, 15px) * 1.5) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 12px rgba(0,0,0,0.4); }
-            100% { box-shadow: 0 0 var(--glow-size, 15px) var(--glow-color, rgba(0,0,0,0.5)), inset 0 0 10px rgba(0,0,0,0.3); }
-        }
-
-        .tooltip {
-            position: absolute;
-            bottom: 105%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            pointer-events: none;
-        }
-        .celestial-body:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .orbit {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .realm-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow-y: auto;
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(0.9);
-            transition: opacity 0.8s ease, visibility 0.8s, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: 200;
-        }
-        .realm-view.active {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-        }
-        body.realm-active #galaxy-wrapper {
-            transform: scale(2) rotate(-30deg);
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .back-to-galaxy {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 210;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.7);
-            border: 1px solid rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .back-to-galaxy:hover {
-            color: #fff;
-            background: rgba(0,0,0,0.7);
-            transform: scale(1.1) rotate(360deg);
-        }
-
-        /* Themes */
-        .theme-investment, .theme-graphite { background: #282828; color: rgba(255, 255, 255, 0.85); box-shadow: inset 0 0 30px #000; }
-        .theme-investment .text-accent, .theme-graphite .text-accent { color: #EAEAEA; }
-        .theme-investment .border-accent, .theme-graphite .border-accent { border-color: #EAEAEA; }
-        .theme-investment .hover-accent:hover, .theme-graphite .hover-accent:hover { background-color: #EAEAEA; color: #282828; }
-        .theme-investment .bg-dark-section, .theme-graphite .bg-dark-section { background-color: rgba(0,0,0,0.25); }
-        .theme-investment .event-card, .theme-investment .report-item, .theme-graphite .event-card, .theme-graphite .report-item { background-color: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
-        .theme-investment .event-card:hover, .theme-investment .report-item:hover, .theme-graphite .event-card:hover, .theme-graphite .report-item:hover { transform: translateY(-5px); border-color: rgba(234, 234, 234, 0.6); }
-        
-        .theme-technology { background: #636C75; color: rgba(255, 255, 255, 0.95); box-shadow: inset 0 0 30px #2c3e50; }
-        .theme-technology .text-accent { color: #D5DEE7; }
-        
-        .theme-finance { background-color: #92847B; color: rgba(255, 255, 255, 0.95); box-shadow: inset 0 0 30px #4a413b; }
-        .theme-finance .text-accent { color: #F9F6F1; }
-        
-        .theme-media { background-color: #323232; color: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 30px #000; }
-        .theme-media .text-accent { color: #E0E0E0; }
-        
-        .theme-hr { background-color: #F9F6F1; color: #333; box-shadow: inset 0 0 30px #d7d0c5; }
-        .theme-hr .text-accent { color: #8c7851; }
-        
-        .theme-ecommerce { background-color:#E1E6EC; color: rgba(10, 10, 20, 0.85); box-shadow: inset 0 0 30px #9D9EA3; }
-        .theme-ecommerce .text-accent { color: #2c3e50; }
-
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="bg-black">
-
+<body class="bg-dark-blue text-white font-sans overflow-hidden">
     <canvas id="three-canvas"></canvas>
     
     <div id="galaxy-wrapper" class="w-screen h-screen flex items-center justify-center fixed top-0 left-0">
-        <div id="galaxy-container" class="relative">
-            <!-- Orbits will be populated by JS -->
-            <div id="sun-home" class="celestial-body sun" style="transform: translate(-50%, -50%);" data-target="home">
+        <div id="galaxy-container" class="relative w-full h-full">
+            <!-- 太阳/中央星球 -->
+            <div id="function-center" class="celestial-body sun absolute" style="transform: translate(-50%, -50%);" data-target="home">
                 <div class="flex flex-col items-center justify-center h-full">
-                    <h2 class="text-2xl font-bold text-accent">九州</h2>
-                    <p class="text-sm text-white/60">中央殿堂</p>
-                    <div class="tooltip">九州国际控股集团</div>
+                    <h2 class="text-2xl font-bold text-white">函数空间</h2>
+                    <p class="text-xs text-white/60">中央核心</p>
+                    <div class="tooltip">九州集团函数中心</div>
                 </div>
             </div>
+            
+            <!-- 轨道将由JS动态生成 -->
         </div>
     </div>
     
     <div id="realm-container"></div>
 
     <button id="back-to-galaxy" class="back-to-galaxy hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+        <i class="fa fa-arrow-left text-xl"></i>
     </button>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Three.js Scene Setup ---
-    let scene, camera, renderer, stars;
-    const mouse = { x: 0, y: 0 };
+    <script>
+        // 初始化Three.js星空背景
+        let scene, camera, renderer, stars;
+        const mouse = { x: 0, y: 0 };
 
-    function initThree() {
-        const canvas = document.getElementById('three-canvas');
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-        camera.position.z = 1;
-        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        function initThree() {
+            const canvas = document.getElementById('three-canvas');
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 1;
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const starVertices = [];
-        for (let i = 0; i < 20000; i++) {
-            starVertices.push((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000);
+            // 创建星空
+            const starVertices = [];
+            for (let i = 0; i < 20000; i++) {
+                starVertices.push((Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000, (Math.random() - 0.5) * 2000);
+            }
+            const starGeometry = new THREE.BufferGeometry();
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7, transparent: true, opacity: 0.8 });
+            stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('mousemove', onMouseMove, false);
+            animateThree();
         }
-        const starGeometry = new THREE.BufferGeometry();
-        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7, transparent: true, opacity: 0.8 });
-        stars = new THREE.Points(starGeometry, starMaterial);
-        scene.add(stars);
 
-        window.addEventListener('resize', onWindowResize, false);
-        document.addEventListener('mousemove', onMouseMove, false);
-        animateThree();
-    }
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
 
-    function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-    
-    function onMouseMove(event) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            const now = Date.now() * 0.0001;
+            stars.rotation.y = now * 0.1;
+            camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.02;
+            camera.position.y += (mouse.y * 0.5 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+        }
 
-    function animateThree() {
-        requestAnimationFrame(animateThree);
-        const now = Date.now() * 0.0001;
-        stars.rotation.y = now * 0.1;
-        camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.02;
-        camera.position.y += (mouse.y * 0.5 - camera.position.y) * 0.02;
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
-    }
-
-    // --- HTML/CSS Logic ---
-    const realms = {
-        home: { name: '九州国际控股集团', theme: 'theme-dark-amber', content: `<div class="min-h-screen flex flex-col justify-center items-center text-center p-4"><h1 class="text-5xl md:text-7xl font-light text-white">我们为探索未知而生。</h1><p class="text-xl md:text-2xl text-accent mt-6">九州集团 | Jiuzhou Group</p></div>`},
-        ridou: { 
-            name: '日斗投资咨询管理有限公司', 
-            type: 'investment',
-            theme: 'theme-investment', 
-            content: `
-                <section class="min-h-screen flex items-center justify-center text-center bg-black/30">
-                    <div class="max-w-4xl px-6">
-                        <p class="text-lg md:text-xl text-accent fade-in">八、九、十月 | 盛大开启</p>
-                        <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">第九届财富交流会</h2>
-                        <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">一场面向未来的思想盛宴。顶尖智囊免费公益授教，广募新秀，共赴金九银十的投资新征程。</p>
-                        <a href="#register-ridou" class="mt-10 inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in" style="transition-delay: 0.6s;">立即免费报名</a>
-                    </div>
-                </section>
-                <section id="register-ridou" class="py-16 md:py-24 bg-dark-section text-center">
-                    <div class="container mx-auto px-6 sm:px-8">
-                        <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">立即报名，锁定席位</h2>
-                        <p class="text-lg mb-10 fade-in">通过以下任一官方渠道与我们取得联系，完成免费报名。</p>
-                        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div class="fade-in"><h4 class="text-xl text-white mb-3">官方邮箱</h4><a href="mailto:Athen@lianghuatozi.com" class="text-accent text-lg break-all inline-flex items-center justify-center gap-2 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg><span>Athen@lianghuatozi.com</span></a></div>
-                            <div class="fade-in" style="transition-delay: 0.2s;"><h4 class="text-xl text-white mb-3">企业微信</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[企微二维码]</p></div></div>
-                            <div class="fade-in" style="transition-delay: 0.4s;"><h4 class="text-xl text-white mb-3">飞书</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[飞书群二维码]</p></div></div>
-                            <div class="fade-in" style="transition-delay: 0.6s;"><h4 class="text-xl text-white mb-3">百度网盘</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[网盘资料群二维码]</p></div></div>
+        // 函数空间数据（整合九州集团业务）
+        const functionSpaces = {
+            home: { 
+                name: '函数空间中心', 
+                theme: 'bg-gradient-to-br from-dark-blue to-dark-purple', 
+                content: `
+                    <div class="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+                        <div class="mb-10 animate-float">
+                            <div class="w-32 h-32 md:w-48 md:h-48 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fa fa-cubes text-6xl md:text-8xl text-primary"></i>
+                            </div>
+                            <h1 class="text-4xl md:text-6xl font-bold text-white mb-2">函数空间星球</h1>
+                            <p class="text-xl text-white/70 max-w-2xl mx-auto">九州集团技术生态系统的核心枢纽</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                            <div class="bg-dark/50 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+                                <div class="text-primary text-3xl mb-3"><i class="fa fa-rocket"></i></div>
+                                <h3 class="text-xl font-bold mb-2">业务单元</h3>
+                                <p class="text-white/70">探索九州集团各业务领域的功能实现</p>
+                            </div>
+                            
+                            <div class="bg-dark/50 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/20">
+                                <div class="text-secondary text-3xl mb-3"><i class="fa fa-code-fork"></i></div>
+                                <h3 class="text-xl font-bold mb-2">函数库</h3>
+                                <p class="text-white/70">访问数千个预构建的函数，加速你的开发过程</p>
+                            </div>
+                            
+                            <div class="bg-dark/50 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/20">
+                                <div class="text-accent text-3xl mb-3"><i class="fa fa-users"></i></div>
+                                <h3 class="text-xl font-bold mb-2">开发者社区</h3>
+                                <p class="text-white/70">与全球开发者交流，分享你的函数作品</p>
+                            </div>
                         </div>
                     </div>
-                </section>
-            `
-        },
-        jucaizhongfa: { name: '聚财众发基金管理有限公司', type: 'finance', theme: 'theme-finance', content: `<div class="min-h-screen flex items-center p-8"><h2 class="text-5xl md:text-7xl font-bold text-accent">数字时代的新财富范式</h2></div>`},
-        xunfeitong: { name: '讯飞通科技服务有限公司', type: 'technology', theme: 'theme-technology', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">九州数字工作站</h2></div>`},
-        media: { name: '九州传媒有限公司', type: 'media', theme: 'theme-media', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">讲述九州故事</h2></div>`},
-        xianzhi: { name: '贤智汇聚人力资源服务有限公司', type: 'hr', theme: 'theme-hr', content: `<div class="min-h-screen flex items-center p-8"><h2 class="text-5xl md:text-7xl font-bold text-accent">汇聚贤智，共筑生态</h2></div>`},
-        peininghui: { name: '容沛凝惠电子商贸有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">沛凝惠</h2></div>`},
-        baimumeile: { name: '白慕梅乐商贸有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">白慕梅乐</h2></div>`},
-        qinqiuliuer: { name: '芹秋柳尔电子商贸有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">芹秋柳尔</h2></div>`},
-        huoyanmedia: { name: '火炎传媒有限公司', type: 'media', theme: 'theme-media', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">火炎传媒</h2></div>`},
-        juxuanxi: { name: '聚轩喜电子商务有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">聚轩喜</h2></div>`},
-        xianuo: { name: '夏诺电子商务有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">夏诺</h2></div>`},
-        lvtingqinxin: { name: '陕西绿听芹新商贸有限公司', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">绿听芹新</h2></div>`},
-        mirouchushi: { name: '陕西觅柔初诗网络科技有限公司', type: 'technology', theme: 'theme-technology', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">觅柔初诗</h2></div>`},
-        pingsheng: { name: '沈阳市浑南区平声电子商务行(个体工商户)', type: 'ecommerce', theme: 'theme-ecommerce', content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">平声电子商务行</h2></div>`},
-    };
-
-    const galaxyContainer = document.getElementById('galaxy-container');
-    const realmContainer = document.getElementById('realm-container');
-    const backButton = document.getElementById('back-to-galaxy');
-    
-    const planetsData = [
-        { id: 'ridou', shortName: '日斗投资', orbit: 1, angle: 30, speed: 0.0001, activity: 0.9 },
-        { id: 'jucaizhongfa', shortName: '聚财众发', orbit: 1, angle: 180, speed: 0.0001, activity: 0.8 },
-        { id: 'xunfeitong', shortName: '讯飞通', orbit: 2, angle: 100, speed: 0.00006, activity: 1.0 },
-        { id: 'media', shortName: '九州传媒', orbit: 2, angle: 250, speed: 0.00006, activity: 0.7 },
-        { id: 'xianzhi', shortName: '贤智汇聚', orbit: 2, angle: 330, speed: 0.00006, activity: 0.6 },
-        { id: 'peininghui', shortName: '沛凝惠', orbit: 3, angle: 0, speed: 0.00004, activity: 0.5 },
-        { id: 'baimumeile', shortName: '白慕梅乐', orbit: 3, angle: 40, speed: 0.00004, activity: 0.4 },
-        { id: 'qinqiuliuer', shortName: '芹秋柳尔', orbit: 3, angle: 80, speed: 0.00004, activity: 0.6 },
-        { id: 'huoyanmedia', shortName: '火炎传媒', orbit: 3, angle: 120, speed: 0.00004, activity: 0.8 },
-        { id: 'juxuanxi', shortName: '聚轩喜', orbit: 3, angle: 160, speed: 0.00004, activity: 0.5 },
-        { id: 'xianuo', shortName: '夏诺', orbit: 3, angle: 200, speed: 0.00004, activity: 0.7 },
-        { id: 'lvtingqinxin', shortName: '绿听芹新', orbit: 3, angle: 240, speed: 0.00004, activity: 0.3 },
-        { id: 'mirouchushi', shortName: '觅柔初诗', orbit: 3, angle: 280, speed: 0.00004, activity: 0.9 },
-        { id: 'pingsheng', shortName: '平声电商', orbit: 3, angle: 320, speed: 0.00004, activity: 0.4 },
-    ].map(p => ({...p, currentAngle: p.angle}));
-
-    const orbitRadii = { 1: 180, 2: 300, 3: 420 };
-
-    const mousePlanet = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    window.addEventListener('mousemove', (e) => { mousePlanet.x = e.clientX; mousePlanet.y = e.clientY; });
-
-    const faderObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-    function init() {
-        for (const radius of Object.values(orbitRadii)) {
-            const orbitEl = document.createElement('div');
-            orbitEl.className = 'orbit';
-            orbitEl.style.width = `${radius * 2}px`;
-            orbitEl.style.height = `${radius * 2}px`;
-            orbitEl.style.marginLeft = `-${radius}px`;
-            orbitEl.style.marginTop = `-${radius}px`;
-            galaxyContainer.appendChild(orbitEl);
-        }
-
-        planetsData.forEach(pData => {
-            const realm = realms[pData.id];
-            const planetEl = document.createElement('div');
-            planetEl.id = `planet-${pData.id}`;
-            planetEl.className = `celestial-body planet ${realm.theme}`;
-            planetEl.dataset.target = pData.id;
-            
-            const glowSize = 15 + pData.activity * 20;
-            const glowColor = `rgba(255, 255, 255, ${0.1 + pData.activity * 0.4})`;
-            planetEl.style.setProperty('--glow-size', `${glowSize}px`);
-            planetEl.style.setProperty('--glow-color', glowColor);
-            planetEl.style.animationDuration = `${5 - pData.activity * 2}s`;
-            
-            planetEl.innerHTML = `
-                <div class="text-accent font-bold">${pData.shortName}</div>
-                <div class="tooltip">${realm.name}</div>
-            `;
-            galaxyContainer.appendChild(planetEl);
-        });
-
-        for (const [id, realm] of Object.entries(realms)) {
-            const realmEl = document.createElement('div');
-            realmEl.id = `realm-${id}`;
-            realmEl.className = `realm-view ${realm.theme}`;
-            realmEl.innerHTML = realm.content;
-            realmContainer.appendChild(realmEl);
-        }
-        
-        document.querySelectorAll('.celestial-body').forEach(el => {
-            el.addEventListener('click', () => showRealm(el.dataset.target));
-        });
-        backButton.addEventListener('click', hideRealms);
-        animatePlanets();
-    }
-
-    let animationFrameId;
-    function animatePlanets() {
-        planetsData.forEach(pData => {
-            const planetEl = document.getElementById(`planet-${pData.id}`);
-            const planetRect = planetEl.getBoundingClientRect();
-            const planetCenterX = planetRect.left + planetRect.width / 2;
-            const planetCenterY = planetRect.top + planetRect.height / 2;
-            const distance = Math.hypot(mousePlanet.x - planetCenterX, mousePlanet.y - planetCenterY);
-            const maxDistance = 200;
-            let slowdownFactor = 1;
-            if (distance < maxDistance) {
-                slowdownFactor = Math.pow(distance / maxDistance, 2);
-                slowdownFactor = Math.max(0.05, slowdownFactor); 
+                `
+            },
+            // 九州集团业务单元作为函数空间的子模块
+            investment: { 
+                name: '投资管理空间', 
+                type: 'business',
+                theme: 'bg-gradient-to-br from-investment-gray to-gray-800', 
+                content: generateBusinessSpaceContent('投资管理', '日斗投资咨询管理有限公司', '聚财众发基金管理有限公司')
+            },
+            technology: { 
+                name: '科技创新空间', 
+                type: 'business',
+                theme: 'bg-gradient-to-br from-technology-blue to-blue-800', 
+                content: generateBusinessSpaceContent('科技创新', '讯飞通科技服务有限公司', '陕西觅柔初诗网络科技有限公司')
+            },
+            media: { 
+                name: '文化传媒空间', 
+                type: 'business',
+                theme: 'bg-gradient-to-br from-media-dark to-gray-800', 
+                content: generateBusinessSpaceContent('文化传媒', '九州传媒有限公司', '火炎传媒有限公司')
+            },
+            hr: { 
+                name: '人力资源空间', 
+                type: 'business',
+                theme: 'bg-gradient-to-br from-hr-beige to-yellow-800', 
+                content: generateBusinessSpaceContent('人力资源', '贤智汇聚人力资源服务有限公司')
+            },
+            ecommerce: { 
+                name: '电子商务空间', 
+                type: 'business',
+                theme: 'bg-gradient-to-br from-ecommerce-light to-indigo-800', 
+                content: generateBusinessSpaceContent('电子商务', '容沛凝惠电子商贸有限公司', '白慕梅乐商贸有限公司', '芹秋柳尔电子商贸有限公司', '聚轩喜电子商务有限公司', '夏诺电子商务有限公司', '陕西绿听芹新商贸有限公司', '沈阳市浑南区平声电子商务行')
             }
-            pData.currentAngle += pData.speed * slowdownFactor * 20;
-            const radius = orbitRadii[pData.orbit];
-            const x = radius * Math.cos(pData.currentAngle);
-            const y = radius * Math.sin(pData.currentAngle);
-            const scale = 1 + (1 - slowdownFactor) * 0.15;
-            planetEl.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale})`;
-        });
-        animationFrameId = requestAnimationFrame(animatePlanets);
-    }
+        };
 
-    function showRealm(id) {
-        if (id === 'home') {
-            alert('欢迎来到九州集团中央殿堂。');
-            return;
+        // 生成业务空间内容
+        function generateBusinessSpaceContent(spaceName, ...subsidiaries) {
+            let content = `
+                <div class="min-h-screen p-8">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="mb-12 text-center">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-4">${spaceName}函数空间</h2>
+                            <p class="text-lg text-white/70 max-w-2xl mx-auto">探索${spaceName}领域的功能实现和业务逻辑</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+            `;
+            
+            // 为每个子公司创建一个函数面板
+            subsidiaries.forEach(subsidiary => {
+                const functions = generateCompanyFunctions(subsidiary);
+                content += `
+                    <div class="function-panel bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden">
+                        <div class="function-header p-6 cursor-pointer flex justify-between items-center" onclick="toggleFunctionPanel(this)">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: rgba(255, 255, 255, 0.1)">
+                                    <i class="fa fa-building text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold">${subsidiary}</h3>
+                            </div>
+                            <div class="function-toggle transition-transform duration-300">
+                                <i class="fa fa-chevron-down text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="function-content">
+                            <div class="p-6 pt-0">
+                                <p class="text-white/70 mb-6">${subsidiary}的核心功能实现</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    ${functions}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            content += `
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return content;
         }
-        document.body.classList.add('realm-active');
-        const realmEl = document.getElementById(`realm-${id}`);
-        realmEl.classList.add('active');
-        backButton.classList.remove('hidden');
-        cancelAnimationFrame(animationFrameId);
         
-        const faders = realmEl.querySelectorAll('.fade-in');
-        faders.forEach(fader => {
-            fader.classList.remove('visible');
-            faderObserver.observe(fader);
+        // 生成公司功能列表
+        function generateCompanyFunctions(companyName) {
+            let functions = '';
+            let functionList = [];
+            
+            // 根据公司名称生成不同的功能列表
+            if (companyName.includes('投资')) {
+                functionList = [
+                    { name: '风险评估模型', icon: 'fa-line-chart', desc: '评估投资项目的风险系数' },
+                    { name: '投资组合优化', icon: 'fa-pie-chart', desc: '生成最优投资组合方案' },
+                    { name: '市场趋势分析', icon: 'fa-area-chart', desc: '分析市场趋势和投资机会' },
+                    { name: '财务报表分析', icon: 'fa-table', desc: '分析企业财务报表数据' }
+                ];
+            } else if (companyName.includes('科技') || companyName.includes('网络')) {
+                functionList = [
+                    { name: 'API接口开发', icon: 'fa-plug', desc: '创建和管理对外API服务' },
+                    { name: '数据安全加密', icon: 'fa-lock', desc: '保护敏感数据的加密算法' },
+                    { name: '系统监控告警', icon: 'fa-eye', desc: '实时监控系统运行状态' },
+                    { name: 'AI模型训练', icon: 'fa-brain', desc: '训练和部署机器学习模型' }
+                ];
+            } else if (companyName.includes('传媒')) {
+                functionList = [
+                    { name: '内容管理系统', icon: 'fa-file-text', desc: '管理和发布媒体内容' },
+                    { name: '社交媒体分析', icon: 'fa-comments', desc: '分析社交媒体数据和趋势' },
+                    { name: '广告投放优化', icon: 'fa-bullhorn', desc: '优化广告投放策略和效果' },
+                    { name: '用户画像分析', icon: 'fa-user-circle', desc: '构建和分析用户画像' }
+                ];
+            } else if (companyName.includes('人力资源')) {
+                functionList = [
+                    { name: '人才招聘系统', icon: 'fa-users', desc: '管理招聘流程和候选人' },
+                    { name: '培训管理系统', icon: 'fa-graduation-cap', desc: '规划和管理员工培训' },
+                    { name: '绩效考核系统', icon: 'fa-trophy', desc: '设计和管理绩效考核体系' },
+                    { name: '薪酬福利管理', icon: 'fa-money', desc: '管理员工薪酬和福利' }
+                ];
+            } else if (companyName.includes('电子商贸') || companyName.includes('电商')) {
+                functionList = [
+                    { name: '商品管理系统', icon: 'fa-shopping-bag', desc: '管理商品信息和库存' },
+                    { name: '订单处理系统', icon: 'fa-shopping-cart', desc: '处理和跟踪客户订单' },
+                    { name: '支付接口集成', icon: 'fa-credit-card', desc: '集成多种支付方式' },
+                    { name: '客户关系管理', icon: 'fa-heart', desc: '管理客户信息和互动' }
+                ];
+            } else {
+                // 默认功能列表
+                functionList = [
+                    { name: '基础业务功能', icon: 'fa-cogs', desc: '公司核心业务功能实现' },
+                    { name: '数据处理函数', icon: 'fa-database', desc: '处理和分析业务数据' },
+                    { name: '用户认证系统', icon: 'fa-key', desc: '管理用户身份验证' },
+                    { name: '日志记录功能', icon: 'fa-file-text-o', desc: '记录系统运行日志' }
+                ];
+            }
+            
+            // 生成功能卡片
+            functionList.forEach(func => {
+                functions += `
+                    <div class="bg-white/3 backdrop-blur-sm p-4 rounded-lg border border-white/10 hover:border-blue-400/50 transition-all">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: rgba(255, 255, 255, 0.1)">
+                                <i class="fa ${func.icon}"></i>
+                            </div>
+                            <h4 class="font-bold">${func.name}</h4>
+                        </div>
+                        <p class="text-sm text-white/70">${func.desc}</p>
+                        <button class="mt-4 px-3 py-1 text-xs bg-blue-500/20 text-blue-400 rounded-full hover:bg-blue-500/30 transition-colors" onclick="showFunctionDetails('${companyName}', '${func.name}')">
+                            <i class="fa fa-code mr-1"></i> 查看详情
+                        </button>
+                    </div>
+                `;
+            });
+            
+            return functions;
+        }
+
+        // 函数详情模态框
+        function showFunctionDetails(company, functionName) {
+            // 创建模态框
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.body.removeChild(this.parentElement)"></div>
+                <div class="relative bg-dark-blue rounded-xl border border-white/10 max-w-3xl w-full max-h-[90vh] overflow-auto">
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">${company} - ${functionName}</h3>
+                        <button class="text-white/70 hover:text-white" onclick="document.body.removeChild(this.closest('.fixed'))">
+                            <i class="fa fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-white/70 mb-6">函数实现细节和文档</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-2">函数描述</h4>
+                            <p class="text-white/80">这是${company}的${functionName}的核心实现，负责处理和管理相关业务逻辑。</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-2">函数参数</h4>
+                            <ul class="list-disc ml-5 text-white/80 space-y-1">
+                                <li><code>param1</code> - 描述参数1的作用和类型</li>
+                                <li><code>param2</code> - 描述参数2的作用和类型</li>
+                                <li><code>options</code> - 可选参数，包含配置选项</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold mb-2">返回值</h4>
+                            <p class="text-white/80">描述函数返回的数据结构和含义</p>
+                        </div>
+                        
+                        <div class="bg-dark/80 rounded-lg p-4 font-mono text-sm overflow-auto max-h-64">
+                            <pre>// 这是${functionName}的示例代码
+function ${functionName.replace(/ /g, '_')}(param1, param2, options = {}) {
+    // 函数实现逻辑
+    const result = processData(param1, param2);
+    
+    // 根据选项进行额外处理
+    if (options.advanced) {
+        return enhanceResult(result, options);
+    }
+    
+    return result;
+}</pre>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end space-x-2">
+                            <button class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-colors" onclick="document.body.removeChild(this.closest('.fixed'))">
+                                关闭
+                            </button>
+                            <button class="px-4 py-2 bg-green-500 hover:bg-green-600 rounded-lg text-sm transition-colors">
+                                <i class="fa fa-copy mr-1"></i> 复制代码
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // 函数面板切换
+        function toggleFunctionPanel(header) {
+            const panel = header.closest('.function-panel');
+            panel.classList.toggle('active');
+        }
+
+        // 函数星球数据
+        const functionPlanets = [
+            { id: 'investment', name: '投资管理', orbit: 1, angle: 0, speed: 0.0001, activity: 0.9, color: 'glow-blue' },
+            { id: 'technology', name: '科技创新', orbit: 1, angle: 120, speed: 0.0001, activity: 1.0, color: 'glow-purple' },
+            { id: 'media', name: '文化传媒', orbit: 1, angle: 240, speed: 0.0001, activity: 0.8, color: 'glow-accent' },
+            { id: 'hr', name: '人力资源', orbit: 2, angle: 60, speed: 0.00006, activity: 0.7, color: 'glow-blue' },
+            { id: 'ecommerce', name: '电子商务', orbit: 2, angle: 180, speed: 0.00006, activity: 0.6, color: 'glow-purple' }
+        ].map(p => ({...p, currentAngle: p.angle}));
+
+        const orbitRadii = { 1: 200, 2: 350 };
+        const mousePosition = { x: 0, y: 0 };
+
+        // 滚动动画观察者
+        const faderObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        function init() {
+            // 创建轨道
+            for (const radius of Object.values(orbitRadii)) {
+                const orbitEl = document.createElement('div');
+                orbitEl.className = 'orbit-path';
+                orbitEl.style.width = `${radius * 2}px`;
+                orbitEl.style.height = `${radius * 2}px`;
+                galaxyContainer.appendChild(orbitEl);
+            }
+
+            // 创建函数星球
+            functionPlanets.forEach(pData => {
+                const functionSpace = functionSpaces[pData.id];
+                const planetEl = document.createElement('div');
+                planetEl.id = `planet-${pData.id}`;
+                planetEl.className = `celestial-body absolute ${pData.color} animate-pulse-slow`;
+                
+                planetEl.style.width = `${40 + pData.activity * 20}px`;
+                planetEl.style.height = `${40 + pData.activity * 20}px`;
+                
+                planetEl.innerHTML = `
+                    <div class="flex items-center justify-center h-full">
+                        <span class="text-xs font-bold">${pData.name}</span>
+                    </div>
+                    <div class="tooltip">${functionSpace.name}</div>
+                `;
+                
+                galaxyContainer.appendChild(planetEl);
+            });
+
+            // 创建函数空间视图
+            for (const [id, space] of Object.entries(functionSpaces)) {
+                const spaceEl = document.createElement('div');
+                spaceEl.id = `space-${id}`;
+                spaceEl.className = `realm-view ${space.theme} scrollbar-hidden`;
+                spaceEl.innerHTML = space.content;
+                realmContainer.appendChild(spaceEl);
+            }
+            
+            // 添加事件监听
+            document.querySelectorAll('.celestial-body').forEach(el => {
+                el.addEventListener('click', () => showFunctionSpace(el.dataset.target));
+            });
+            
+            document.getElementById('back-to-galaxy').addEventListener('click', hideFunctionSpaces);
+            
+            // 初始化滚动动画
+            document.querySelectorAll('.fade-in').forEach(fader => {
+                faderObserver.observe(fader);
+            });
+            
+            // 开始星球动画
+            animatePlanets();
+            
+            // 鼠标移动动画
+            document.addEventListener('mousemove', (e) => {
+                mousePosition.x = e.clientX;
+                mousePosition.y = e.clientY;
+            });
+        }
+
+        let animationId;
+        function animatePlanets() {
+            functionPlanets.forEach(pData => {
+                const planetEl = document.getElementById(`planet-${pData.id}`);
+                const radius = orbitRadii[pData.orbit];
+                
+                // 计算星球位置
+                pData.currentAngle += pData.speed;
+                const x = radius * Math.cos(pData.currentAngle);
+                const y = radius * Math.sin(pData.currentAngle);
+                
+                // 鼠标交互
+                const centerX = window.innerWidth / 2 + x;
+                const centerY = window.innerHeight / 2 + y;
+                const dx = mousePosition.x - centerX;
+                const dy = mousePosition.y - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // 鼠标悬停效果
+                const scale = 1 + Math.max(0, (100 - distance) / 100) * 0.3;
+                planetEl.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale})`;
+                
+                // 光晕效果
+                const glowIntensity = 1 + Math.max(0, (100 - distance) / 100) * 0.5;
+                planetEl.style.boxShadow = `0 0 ${15 * glowIntensity}px ${pData.color.replace('glow-', 'rgba(').replace(')', `, ${0.5 * glowIntensity})`}`;
+            });
+            
+            animationId = requestAnimationFrame(animatePlanets);
+        }
+
+        function showFunctionSpace(id) {
+            if (id === 'home') {
+                // 中央星球逻辑
+                alert('欢迎来到九州集团函数空间中心！');
+                return;
+            }
+            
+            document.body.classList.add('realm-active');
+            const spaceEl = document.getElementById(`space-${id}`);
+            spaceEl.classList.add('active');
+            document.getElementById('back-to-galaxy').classList.remove('hidden');
+            
+            // 暂停星球动画
+            cancelAnimationFrame(animationId);
+            
+            // 初始化新视图中的滚动动画
+            spaceEl.querySelectorAll('.fade-in').forEach(fader => {
+                fader.classList.remove('visible');
+                faderObserver.observe(fader);
+            });
+        }
+
+        function hideFunctionSpaces() {
+            document.body.classList.remove('realm-active');
+            document.querySelector('.realm-view.active')?.classList.remove('active');
+            document.getElementById('back-to-galaxy').classList.add('hidden');
+            
+            // 恢复星球动画
+            animationId = requestAnimationFrame(animatePlanets);
+        }
+
+        // 初始化应用
+        window.addEventListener('DOMContentLoaded', () => {
+            initThree();
+            init();
         });
-    }
-
-    function hideRealms() {
-        document.body.classList.remove('realm-active');
-        document.querySelector('.realm-view.active')?.classList.remove('active');
-        backButton.classList.add('hidden');
-        requestAnimationFrame(animatePlanets);
-    }
-
-    initThree();
-    init();
-});
-</script>
-
+    </script>
 </body>
 </html>

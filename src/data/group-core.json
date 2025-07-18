@@ -1,0 +1,20 @@
+{
+  "id": "jiuzhou",
+  "name": "九州国际控股集团",
+  "vision": "我们为探索未知而生",
+  "mission": "与成员共同进化，成员的成长定义了我们的边界",
+  "values": ["绝对诚信", "无尽探索", "底线原则", "共赢生态"],
+  "subsidiaries": [
+    { "id": "ridou", "type": "investment", "name": "日斗投资咨询管理有限公司" },
+    { "id": "jucaizhongfa", "type": "finance", "name": "聚财众发基金管理有限公司" },
+    { "id": "xunfeitong", "type": "technology", "name": "讯飞通科技服务有限公司" },
+    { "id": "media", "type": "media", "name": "九州传媒有限公司" },
+    { "id": "xianzhi", "type": "hr", "name": "贤智汇聚人力资源服务有限公司" },
+    { "id": "peininghui", "type": "ecommerce", "name": "容沛凝惠电子商贸有限公司" },
+    { "id": "baimumeile", "type": "ecommerce", "name": "白慕梅乐商贸有限公司" },
+    { "id": "qinqiuliuer", "type": "ecommerce", "name": "芹秋柳尔电子商贸有限公司" },
+    { "id": "huoyanmedia", "type": "media", "name": "火炎传媒有限公司" },
+    { "id": "juxuanxi", "type": "ecommerce", "name": "聚轩喜电子商务有限公司" },
+    { "id": "xianuo", "type": "ecommerce", "name": "夏诺电子商务有限公司" }
+  ]
+}

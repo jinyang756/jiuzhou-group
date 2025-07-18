@@ -1,0 +1,120 @@
+{
+  "group": {
+    "name": "九州国际控股集团",
+    "vision": "我们为探索未知而生",
+    "mission": "与成员共同进化，成员的成长定义了我们的边界",
+    "values": ["绝对诚信", "无尽探索", "底线原则", "共赢生态"],
+    "subsidiaries": {
+      "ridou": {
+        "name": "日斗投资咨询管理有限公司",
+        "type": "investment",
+        "theme": "theme-investment",
+        "businesses": {
+          "wealth_management": {
+            "name": "财富管理",
+            "description": "为客户提供专业的财富管理服务",
+            "data_flows": ["客户需求分析", "资产配置方案", "投资组合管理", "绩效评估"]
+          },
+          "investment_consulting": {
+            "name": "投资咨询",
+            "description": "提供专业的投资咨询服务",
+            "data_flows": ["市场研究", "投资策略制定", "风险评估", "投资建议"]
+          }
+        }
+      },
+      "jucaizhongfa": {
+        "name": "聚财众发基金管理有限公司",
+        "type": "finance",
+        "theme": "theme-finance",
+        "businesses": {
+          "fund_management": {
+            "name": "基金管理",
+            "description": "管理各类投资基金",
+            "data_flows": ["基金募集", "投资运作", "基金估值", "收益分配"]
+          }
+        }
+      },
+      "xunfeitong": {
+        "name": "讯飞通科技服务有限公司",
+        "type": "technology",
+        "theme": "theme-technology",
+        "businesses": {
+          "digital_workstation": {
+            "name": "数字工作站",
+            "description": "提供数字化工作平台",
+            "data_flows": ["用户需求", "产品设计", "开发测试", "上线运营"]
+          }
+        }
+      },
+      "media": {
+        "name": "九州传媒有限公司",
+        "type": "media",
+        "theme": "theme-media",
+        "businesses": {
+          "content_creation": {
+            "name": "内容创作",
+            "description": "创作各类媒体内容",
+            "data_flows": ["选题策划", "内容制作", "审核发布", "效果分析"]
+          }
+        }
+      },
+      "xianzhi": {
+        "name": "贤智汇聚人力资源服务有限公司",
+        "type": "hr",
+        "theme": "theme-hr",
+        "businesses": {
+          "talent_recruitment": {
+            "name": "人才招聘",
+            "description": "为企业提供人才招聘服务",
+            "data_flows": ["需求分析", "候选人搜索", "面试评估", "入职跟进"]
+          }
+        }
+      },
+      "peininghui": {
+        "name": "容沛凝惠电子商贸有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "baimumeile": {
+        "name": "白慕梅乐商贸有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "qinqiuliuer": {
+        "name": "芹秋柳尔电子商贸有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "huoyanmedia": {
+        "name": "火炎传媒有限公司",
+        "type": "media",
+        "theme": "theme-media"
+      },
+      "juxuanxi": {
+        "name": "聚轩喜电子商务有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "xianuo": {
+        "name": "夏诺电子商务有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "lvtingqinxin": {
+        "name": "陕西绿听芹新商贸有限公司",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      },
+      "mirouchushi": {
+        "name": "陕西觅柔初诗网络科技有限公司",
+        "type": "technology",
+        "theme": "theme-technology"
+      },
+      "pingsheng": {
+        "name": "沈阳市浑南区平声电子商务行(个体工商户)",
+        "type": "ecommerce",
+        "theme": "theme-ecommerce"
+      }
+    }
+  }
+}
