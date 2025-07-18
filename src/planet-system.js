@@ -1,17 +1,57 @@
 // 九州集团行星系统
-import { fetchGroupData, fetchSubsidiaryData, fetchBusinessData } from './services/data-loader.js';
+// 导入数据加载函数 (假设它们位于 /js/services/data-loader.js)
+import { fetchGroupData, fetchSubsidiaryData, fetchBusinessData } from '/js/services/data-loader.js';
+// 导入Three.js库 (假设Three.js位于 /js/three.module.js)
+import * as THREE from '/js/three.module.js'; // 根据您实际的Three.js路径调整
 
 class PlanetSystem {
   constructor() {
     this.realms = {};
-    this.planets = [];
+    this.planetsData = [];
     this.activeRealm = null;
     this.animationFrameId = null;
     this.mouse = { x: 0, y: 0 };
+    this.mousePlanet = { x: 0, y: 0 };
+    this.galaxyContainer = null;
+    this.realmContainer = null;
+    this.backButton = null;
+    this.faderObserver = null;
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.stars = null;
+    this.orbitRadii = { 0: 0, 1: 180, 2: 300, 3: 420 };
+
+    // 定义每个子域的实际URL，用于点击行星时跳转
+    this.subsidiaryUrls = {
+      home: 'https://jiuzhougroup.vip/',
+      ridou: 'https://jiuzhougroup-rdtz.web.app/',
+      jucaizhongfa: 'https://jiuzhougroup-jczf.web.app/',
+      xianzhi: 'https://jiuzhougroup-xzhj.web.app/',
+      xunfeitong: 'https://jiuzhougroup-xft.web.app/',
+      passport: 'https://jiuzhougroup-txz.web.app/', // 注意：这里使用了 'passport' 作为内部ID，与之前提到的 '通行证' 匹配
+      sandbox: 'https://jiuzhougroup-jzsp.web.app/',
+      media: 'https://jiuzhougroup-jzcm.web.app/',
+      tools: 'https://tools.jiuzhougroup.vip/', // 九州工具集没有提供新域名，暂时保留旧的
+      // 其他子域的URL也需要在这里定义
+      peininghui: 'https://jiuzhougroup.vip/peininghui.html', // 示例：如果不是子域名，而是主域下的路径
+      baimumeile: 'https://jiuzhougroup.vip/baimumeile.html',
+      qinqiuliuer: 'https://jiuzhougroup.vip/qinqiuliuer.html',
+      huoyanmedia: 'https://jiuzhougroup.vip/huoyanmedia.html',
+      juxuanxi: 'https://jiuzhougroup.vip/juxuanxi.html',
+      xianuo: 'https://jiuzhougroup.vip/xianuo.html',
+      lvtingqinxin: 'https://jiuzhougroup.vip/lvtingqinxin.html',
+      mirouchushi: 'https://jiuzhougroup.vip/mirouchushi.html',
+      pingsheng: 'https://jiuzhougroup.vip/pingsheng.html'
+    };
   }
 
   // 初始化函数空间星球系统
   init() {
+    this.galaxyContainer = document.getElementById('galaxy-container');
+    this.realmContainer = document.getElementById('realm-container'); // 这个在跳转模式下可能不会被实际使用
+    this.backButton = document.getElementById('back-to-galaxy'); // 这个按钮在跳转模式下也可能不再需要
+
     this.initThree();
     this.loadRealmData();
     this.initEventListeners();
@@ -20,22 +60,7 @@ class PlanetSystem {
   // 异步加载领域数据
   async loadRealmData() {
     try {
-      // 懒加载数据 - 只有当用户滚动到相关区域时才加载
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // 加载数据
-            this.fetchRealmData();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      // 观察星系容器
-      const galaxyContainer = document.getElementById('galaxy-container');
-      if (galaxyContainer) {
-        observer.observe(galaxyContainer);
-      }
+      await this.fetchRealmData();
     } catch (error) {
       console.error('Error in loadRealmData:', error);
     }
@@ -44,45 +69,85 @@ class PlanetSystem {
   // 实际获取领域数据的方法
   async fetchRealmData() {
     try {
-      // 从新的数据源加载数据
-      const groupData = await fetchGroupData();
+      // 这里的 groupData 假设是您之前提供的结构，包含 subsidiaries
+      // 为了演示，我将直接使用硬编码的数据，您可以替换为实际的 fetchGroupData() 调用
+      const groupData = {
+        subsidiaries: [
+          { id: 'ridou', name: '日斗投资', type: 'investment' },
+          { id: 'jucaizhongfa', name: '聚财众发', type: 'finance' },
+          { id: 'xianzhi', name: '贤智汇聚', type: 'hr' },
+          { id: 'xunfeitong', name: '讯飞通', type: 'technology' },
+          { id: 'media', name: '九州传媒', type: 'media' },
+          { id: 'sandbox', name: '九州沙盘', type: 'strategy' },
+          { id: 'passport', name: '统一通行证', type: 'core' },
+          // 确保所有子公司都在这里定义，以便在行星系统中显示
+          { id: 'tools', name: '九州工具集', type: 'tools' },
+          { id: 'peininghui', name: '容沛凝惠', type: 'ecommerce' },
+          { id: 'baimumeile', name: '白慕梅乐', type: 'ecommerce' },
+          { id: 'qinqiuliuer', name: '芹秋柳尔', type: 'ecommerce' },
+          { id: 'huoyanmedia', name: '火炎传媒', type: 'media' },
+          { id: 'juxuanxi', name: '聚轩喜', type: 'ecommerce' },
+          { id: 'xianuo', name: '夏诺', type: 'ecommerce' },
+          { id: 'lvtingqinxin', name: '绿听芹新', type: 'ecommerce' },
+          { id: 'mirouchushi', name: '觅柔初诗', type: 'technology' },
+          { id: 'pingsheng', name: '平声', type: 'ecommerce' }
+        ]
+      };
 
-      // 处理加载的数据
       this.realms = {};
       this.planetsData = [];
 
-      // 解析集团数据
-      const subsidiaries = groupData.subsidiaries;
+      // 添加主域作为第一个行星 (中央星)
+      this.realms['home'] = {
+        name: '九州集团',
+        type: 'core',
+        theme: 'theme-core',
+        // content 在这种跳转模式下不再直接渲染，但可以作为元数据保留
+        content: `<div><h2>九州集团核心</h2></div>`
+      };
+      this.planetsData.push({
+        id: 'home',
+        shortName: '九州集团',
+        orbit: 0,
+        angle: 0,
+        speed: 0.00015,
+        activity: 1.0,
+        currentAngle: 0
+      });
 
-      // 为每个子公司创建领域和行星数据
-      subsidiaries.forEach((subsidiary, index) => {
-        // 简单的轨道分配逻辑
+      // 解析集团数据并为每个子公司创建领域和行星数据
+      groupData.subsidiaries.forEach((subsidiary, index) => {
+        // 轨道分配逻辑
         let orbit = 1;
         let speed = 0.0001;
-        
-        if (index >= 2 && index < 5) {
+
+        if (index >= 3 && index < 7) { // 调整轨道分配，以适应更多行星
           orbit = 2;
-          speed = 0.00006;
-        } else if (index >= 5) {
+          speed = 0.00008; // 稍微快一点
+        } else if (index >= 7 && index < 12) {
           orbit = 3;
+          speed = 0.00006;
+        } else if (index >= 12) {
+          orbit = 4; // 新增第四轨道
+          this.orbitRadii[4] = 540; // 定义第四轨道半径
           speed = 0.00004;
         }
 
-        const angle = 30 + (index * 360 / subsidiaries.length);
+        const angle = (index * 360 / groupData.subsidiaries.length) * (Math.PI / 180); // 将角度转换为弧度
         const activity = Math.random() * 0.7 + 0.3;
 
-        // 构建领域数据
+        // 构建领域数据 (这里的内容不会被渲染，因为我们会直接跳转)
         this.realms[subsidiary.id] = {
           name: subsidiary.name,
           type: subsidiary.type || 'general',
           theme: `theme-${subsidiary.type || 'dark-amber'}`,
-          content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">${subsidiary.name}</h2></div>`
+          content: `<div><h2>${subsidiary.name}</h2><p>点击前往官网</p></div>`
         };
 
         // 构建行星数据
         this.planetsData.push({
           id: subsidiary.id,
-          shortName: subsidiary.name.length > 8 ? subsidiary.name.substring(0, 8) + '...' : subsidiary.name,
+          shortName: subsidiary.name.length > 5 ? subsidiary.name.substring(0, 5) + '...' : subsidiary.name, // 缩短名称以适应小行星
           orbit: orbit,
           angle: angle,
           speed: speed,
@@ -91,41 +156,40 @@ class PlanetSystem {
         });
       });
 
-      // 初始化行星
+      // 初始化行星（DOM元素）
       this.initPlanets();
-      this.bindEvents();
+      this.bindEvents(); // 绑定点击事件
 
       // 开始动画
       this.animatePlanets();
+      this.animateThree(); // 启动Three.js动画
 
-      // 延迟加载子公司详细数据
-      setTimeout(() => {
-        this.loadSubsidiaryDetails();
-      }, 1000);
     } catch (error) {
       console.error('Failed to load realm data:', error);
     }
   }
 
-  // 加载子公司详细数据
+  // 加载子公司详细数据 (在跳转模式下，此方法可能不再需要其内部的realmElement更新逻辑，因为它会直接导航)
   async loadSubsidiaryDetails() {
+    // 理论上，在跳转模式下，这里的主要目的是确保 realms 数据完整，
+    // 而不是更新DOM，因为DOM会随页面跳转而重建。
+    // 如果这些数据被用于其他目的（如行星的tooltip信息），则仍需加载。
     try {
       for (const [id, realm] of Object.entries(this.realms)) {
-        const subsidiaryData = await fetchSubsidiaryData(id);
+        if (id === 'home') continue; // 主域不需要加载子公司详情
 
-        // 更新领域数据
+        // 假设 fetchSubsidiaryData 仍返回相关数据，即使不用于DOM渲染
+        const subsidiaryData = await fetchSubsidiaryData(id).catch(err => {
+            console.warn(`Could not fetch details for ${id}:`, err);
+            return {}; // 返回空对象以避免后续错误
+        });
+
         this.realms[id] = {
           ...realm,
           theme: subsidiaryData.theme || realm.theme,
-          content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">${subsidiaryData.name}</h2></div>`
+          // content 仍然可以更新，但不会被 showRealm 内部渲染
+          content: `<div><h2>${subsidiaryData.name || realm.name}</h2><p>点击前往官网</p></div>`
         };
-
-        // 更新对应的领域元素
-        const realmEl = document.getElementById(`realm-${id}`);
-        if (realmEl) {
-          realmEl.className = `realm-view ${this.realms[id].theme}`;
-          realmEl.innerHTML = this.realms[id].content;
-        }
       }
     } catch (error) {
       console.error('Failed to load subsidiary details:', error);
@@ -158,23 +222,21 @@ class PlanetSystem {
     this.scene.add(this.stars);
   }
 
-  // 初始化行星
+  // 初始化行星DOM元素
   initPlanets() {
-    this.orbitRadii = { 1: 180, 2: 300, 3: 420 };
-    this.galaxyContainer = document.getElementById('galaxy-container');
-    this.realmContainer = document.getElementById('realm-container');
-    this.backButton = document.getElementById('back-to-galaxy');
-
-    // 清空现有内容
+    // 清空现有内容，确保DOM更新正确
     while (this.galaxyContainer.firstChild) {
       this.galaxyContainer.removeChild(this.galaxyContainer.firstChild);
     }
-    while (this.realmContainer.firstChild) {
-      this.realmContainer.removeChild(this.realmContainer.firstChild);
+    if (this.realmContainer) { // realmContainer在跳转模式下可能不再需要DOM操作
+        while (this.realmContainer.firstChild) {
+            this.realmContainer.removeChild(this.realmContainer.firstChild);
+        }
     }
 
     // 创建轨道
     for (const radius of Object.values(this.orbitRadii)) {
+      if (radius === 0) continue; // 核心行星没有轨道线
       const orbitEl = document.createElement('div');
       orbitEl.className = 'orbit';
       orbitEl.style.width = `${radius * 2}px`;
@@ -206,16 +268,18 @@ class PlanetSystem {
         this.galaxyContainer.appendChild(planetEl);
       });
 
-      // 创建领域元素
+      // 创建领域元素 (这些现在是占位符，因为点击会跳转)
       for (const [id, realm] of Object.entries(this.realms)) {
-        const realmEl = document.createElement('div');
-        realmEl.id = `realm-${id}`;
-        realmEl.className = `realm-view ${realm.theme}`;
-        realmEl.innerHTML = realm.content;
-        this.realmContainer.appendChild(realmEl);
+        if (this.realmContainer) { // 只有 realmContainer 存在时才操作
+          const realmEl = document.createElement('div');
+          realmEl.id = `realm-${id}`;
+          realmEl.className = `realm-view ${realm.theme}`;
+          realmEl.innerHTML = realm.content; // 这里的内容不会被实际看到，因为会跳转
+          this.realmContainer.appendChild(realmEl);
+        }
       }
 
-      // 初始化交叉观察器用于淡入效果
+      // 初始化交叉观察器用于淡入效果 (如果realm-view被重新使用，这里仍然有用)
       this.faderObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -224,188 +288,16 @@ class PlanetSystem {
         });
       }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
     }
-      home: {
-        name: '九州国际控股集团',
-        theme: 'theme-dark-amber',
-        content: `<div class="min-h-screen flex flex-col justify-center items-center text-center p-4"><h1 class="text-5xl md:text-7xl font-light text-white">我们为探索未知而生。</h1><p class="text-xl md:text-2xl text-accent mt-6">九州集团 | Jiuzhou Group</p></div>`
-      },
-      ridou: {
-        name: '日斗投资咨询管理有限公司',
-        type: 'investment',
-        theme: 'theme-investment',
-        content: `
-          <section class="min-h-screen flex items-center justify-center text-center bg-black/30">
-            <div class="max-w-4xl px-6">
-              <p class="text-lg md:text-xl text-accent fade-in">八、九、十月 | 盛大开启</p>
-              <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">第九届财富交流会</h2>
-              <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">一场面向未来的思想盛宴。顶尖智囊免费公益授教，广募新秀，共赴金九银十的投资新征程。</p>
-              <a href="#register-ridou" class="mt-10 inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in" style="transition-delay: 0.6s;">立即免费报名</a>
-            </div>
-          </section>
-          <section id="register-ridou" class="py-16 md:py-24 bg-dark-section text-center">
-            <div class="container mx-auto px-6 sm:px-8">
-              <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">立即报名，锁定席位</h2>
-              <p class="text-lg mb-10 fade-in">通过以下任一官方渠道与我们取得联系，完成免费报名。</p>
-              <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="fade-in"><h4 class="text-xl text-white mb-3">官方邮箱</h4><a href="mailto:Athen@lianghuatozi.com" class="text-accent text-lg break-all inline-flex items-center justify-center gap-2 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg><span>Athen@lianghuatozi.com</span></a></div>
-                <div class="fade-in" style="transition-delay: 0.2s;"><h4 class="text-xl text-white mb-3">企业微信</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[企微二维码]</p></div></div>
-                <div class="fade-in" style="transition-delay: 0.4s;"><h4 class="text-xl text-white mb-3">飞书</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[飞书群二维码]</p></div></div>
-                <div class="fade-in" style="transition-delay: 0.6s;"><h4 class="text-xl text-white mb-3">百度网盘</h4><div class="w-32 h-32 bg-white/90 p-2 rounded-lg mx-auto flex items-center justify-center"><p class="text-black text-sm">[网盘资料群二维码]</p></div></div>
-              </div>
-            </div>
-          </section>
-        `
-      },
-      jucaizhongfa: {
-        name: '聚财众发基金管理有限公司',
-        type: 'finance',
-        theme: 'theme-finance',
-        content: `<div class="min-h-screen flex items-center p-8"><h2 class="text-5xl md:text-7xl font-bold text-accent">数字时代的新财富范式</h2></div>`
-      },
-      xunfeitong: {
-        name: '讯飞通科技服务有限公司',
-        type: 'technology',
-        theme: 'theme-technology',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">九州数字工作站</h2></div>`
-      },
-      media: {
-        name: '九州传媒有限公司',
-        type: 'media',
-        theme: 'theme-media',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl md:text-7xl font-bold text-accent">讲述九州故事</h2></div>`
-      },
-      xianzhi: {
-        name: '贤智汇聚人力资源服务有限公司',
-        type: 'hr',
-        theme: 'theme-hr',
-        content: `<div class="min-h-screen flex items-center p-8"><h2 class="text-5xl md:text-7xl font-bold text-accent">汇聚贤智，共筑生态</h2></div>`
-      },
-      peininghui: {
-        name: '容沛凝惠电子商贸有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">沛凝惠</h2></div>`
-      },
-      baimumeile: {
-        name: '白慕梅乐商贸有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">白慕梅乐</h2></div>`
-      },
-      qinqiuliuer: {
-        name: '芹秋柳尔电子商贸有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">芹秋柳尔</h2></div>`
-      },
-      huoyanmedia: {
-        name: '火炎传媒有限公司',
-        type: 'media',
-        theme: 'theme-media',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">火炎传媒</h2></div>`
-      },
-      juxuanxi: {
-        name: '聚轩喜电子商务有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">聚轩喜</h2></div>`
-      },
-      xianuo: {
-        name: '夏诺电子商务有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">夏诺</h2></div>`
-      },
-      lvtingqinxin: {
-        name: '陕西绿听芹新商贸有限公司',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">绿听芹新</h2></div>`
-      },
-      mirouchushi: {
-        name: '陕西觅柔初诗网络科技有限公司',
-        type: 'technology',
-        theme: 'theme-technology',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">觅柔初诗</h2></div>`
-      },
-      pingsheng: {
-        name: '沈阳市浑南区平声电子商务行(个体工商户)',
-        type: 'ecommerce',
-        theme: 'theme-ecommerce',
-        content: `<div class="min-h-screen flex items-center justify-center text-center p-4"><h2 class="text-5xl text-accent">平声电子商务行</h2></div>`
-      }
-    };
-
-    // 动态生成行星数据已移至loadRealmData方法
-    // 创建行星元素
-    this.createPlanets = () => {
-      { id: 'ridou', shortName: '日斗投资', orbit: 1, angle: 30, speed: 0.0001, activity: 0.9 },
-      { id: 'jucaizhongfa', shortName: '聚财众发', orbit: 1, angle: 180, speed: 0.0001, activity: 0.8 },
-      { id: 'xunfeitong', shortName: '讯飞通', orbit: 2, angle: 100, speed: 0.00006, activity: 1.0 },
-      { id: 'media', shortName: '九州传媒', orbit: 2, angle: 250, speed: 0.00006, activity: 0.7 },
-      { id: 'xianzhi', shortName: '贤智汇聚', orbit: 2, angle: 330, speed: 0.00006, activity: 0.6 },
-      { id: 'peininghui', shortName: '沛凝惠', orbit: 3, angle: 0, speed: 0.00004, activity: 0.5 },
-      { id: 'baimumeile', shortName: '白慕梅乐', orbit: 3, angle: 40, speed: 0.00004, activity: 0.4 },
-      { id: 'qinqiuliuer', shortName: '芹秋柳尔', orbit: 3, angle: 80, speed: 0.00004, activity: 0.6 },
-      { id: 'huoyanmedia', shortName: '火炎传媒', orbit: 3, angle: 120, speed: 0.00004, activity: 0.8 },
-      { id: 'juxuanxi', shortName: '聚轩喜', orbit: 3, angle: 160, speed: 0.00004, activity: 0.5 },
-      { id: 'xianuo', shortName: '夏诺', orbit: 3, angle: 200, speed: 0.00004, activity: 0.7 },
-      { id: 'lvtingqinxin', shortName: '绿听芹新', orbit: 3, angle: 240, speed: 0.00004, activity: 0.3 },
-      { id: 'mirouchushi', shortName: '觅柔初诗', orbit: 3, angle: 280, speed: 0.00004, activity: 0.9 },
-      { id: 'pingsheng', shortName: '平声电商', orbit: 3, angle: 320, speed: 0.00004, activity: 0.4 }
-    ].map(p => ({...p, currentAngle: p.angle}));
-
-    // 从加载的数据创建行星元素
-    this.planetsData.forEach(pData => {
-      const realm = this.realms[pData.id];
-      const planetEl = document.createElement('div');
-      planetEl.id = `planet-${pData.id}`;
-      planetEl.className = `celestial-body planet ${realm.theme}`;
-      planetEl.dataset.target = pData.id;
-
-      const glowSize = 15 + pData.activity * 20;
-      const glowColor = `rgba(255, 255, 255, ${0.1 + pData.activity * 0.4})`;
-      planetEl.style.setProperty('--glow-size', `${glowSize}px`);
-      planetEl.style.setProperty('--glow-color', glowColor);
-      planetEl.style.animationDuration = `${5 - pData.activity * 2}s`;
-
-      planetEl.innerHTML = `
-        <div class="text-accent font-bold">${pData.shortName}</div>
-        <div class="tooltip">${realm.name}</div>
-      `;
-      this.galaxyContainer.appendChild(planetEl);
-    });
-
-    // 创建领域元素
-    for (const [id, realm] of Object.entries(this.realms)) {
-      const realmEl = document.createElement('div');
-      realmEl.id = `realm-${id}`;
-      realmEl.className = `realm-view ${realm.theme}`;
-      realmEl.innerHTML = realm.content;
-      this.realmContainer.appendChild(realmEl);
-    }
-
-    // 初始化交叉观察器用于淡入效果
-    this.faderObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
   }
 
-  // 初始化事件监听器
+  // 绑定事件
   initEventListeners() {
-    // 窗口调整大小事件
     window.addEventListener('resize', () => {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
     }, false);
 
-    // 鼠标移动事件
-    this.mousePlanet = { x: 0, y: 0 };
     window.addEventListener('mousemove', (e) => {
       this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -413,18 +305,19 @@ class PlanetSystem {
       this.mousePlanet.y = e.clientY;
     }, false);
 
-    // 返回按钮点击事件
+    // 返回按钮点击事件 (在跳转模式下可能不再需要，或者链接到主域)
     if (this.backButton) {
-      this.backButton.addEventListener('click', () => this.hideRealms());
+      this.backButton.addEventListener('click', () => {
+        // 如果有需要返回主域的逻辑，可以在这里实现
+        window.location.href = this.subsidiaryUrls.home;
+      });
     }
 
-    // 为动态创建的行星元素添加点击事件
     this.addPlanetClickEvents = () => {
       document.querySelectorAll('.celestial-body').forEach(el => {
-        // 先移除可能存在的事件监听器
         const newEl = el.cloneNode(true);
         el.parentNode.replaceChild(newEl, el);
-        // 添加新的事件监听器
+        // 修改点击事件：直接跳转到对应子域URL
         newEl.addEventListener('click', () => this.showRealm(newEl.dataset.target));
       });
     };
@@ -437,7 +330,8 @@ class PlanetSystem {
 
   // 动画Three.js场景
   animateThree() {
-    requestAnimationFrame(() => this.animateThree());
+    // 这里使用 requestAnimationFrame 递归调用，以保持动画平滑
+    this.animationFrameId = requestAnimationFrame(() => this.animateThree()); // 使用 this.animationFrameId
     const now = Date.now() * 0.0001;
     this.stars.rotation.y = now * 0.1;
     this.camera.position.x += (this.mouse.x * 0.5 - this.camera.position.x) * 0.02;
@@ -446,10 +340,13 @@ class PlanetSystem {
     this.renderer.render(this.scene, this.camera);
   }
 
-  // 动画行星
+  // 动画行星DOM元素
   animatePlanets() {
+    this.animationFrameId = requestAnimationFrame(() => this.animatePlanets()); // 确保这里是递归调用
     this.planetsData.forEach(pData => {
       const planetEl = document.getElementById(`planet-${pData.id}`);
+      if (!planetEl) return; // 防止元素未找到的错误
+
       const planetRect = planetEl.getBoundingClientRect();
       const planetCenterX = planetRect.left + planetRect.width / 2;
       const planetCenterY = planetRect.top + planetRect.height / 2;
@@ -460,44 +357,54 @@ class PlanetSystem {
         slowdownFactor = Math.pow(distance / maxDistance, 2);
         slowdownFactor = Math.max(0.05, slowdownFactor);
       }
-      pData.currentAngle += pData.speed * slowdownFactor * 20;
+
+      pData.currentAngle += pData.speed * slowdownFactor * 20; // 乘以20来加速动画以更好地展示
       const radius = this.orbitRadii[pData.orbit];
       const x = radius * Math.cos(pData.currentAngle);
       const y = radius * Math.sin(pData.currentAngle);
       const scale = 1 + (1 - slowdownFactor) * 0.15;
       planetEl.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale})`;
+
+      // 更新 tooltip 位置
+      const tooltipEl = planetEl.querySelector('.tooltip');
+      if (tooltipEl) {
+          tooltipEl.style.transform = `translateY(-${50 + (1 - slowdownFactor) * 20}px)`; // 鼠标接近时tooltip上浮
+      }
     });
-    this.animationFrameId = requestAnimationFrame(() => this.animatePlanets());
   }
 
-  // 显示领域
+  // 显示领域 (修改为直接跳转)
   showRealm(id) {
-    if (id === 'home') {
-      alert('欢迎来到九州集团中央殿堂。');
-      return;
+    if (this.subsidiaryUrls[id]) {
+      window.location.href = this.subsidiaryUrls[id]; // 直接跳转到子域URL
+    } else {
+      console.warn(`No URL defined for realm: ${id}`);
+      // Fallback: 如果没有定义URL，可以显示一个默认信息或保持在当前页面
+      alert(`正在尝试访问 ${this.realms[id].name}，但其URL未定义或不可用。`);
     }
-    document.body.classList.add('realm-active');
-    this.activeRealm = document.getElementById(`realm-${id}`);
-    this.activeRealm.classList.add('active');
-    this.backButton.classList.remove('hidden');
-    cancelAnimationFrame(this.animationFrameId);
+    // 在跳转模式下，不再需要以下DOM操作
+    // document.body.classList.add('realm-active');
+    // this.activeRealm = document.getElementById(`realm-${id}`);
+    // this.activeRealm.classList.add('active');
+    // this.backButton.classList.remove('hidden');
+    // cancelAnimationFrame(this.animationFrameId); // 取消行星动画，因为页面将跳转
 
-    const faders = this.activeRealm.querySelectorAll('.fade-in');
-    faders.forEach(fader => {
-      fader.classList.remove('visible');
-      this.faderObserver.observe(fader);
-    });
+    // const faders = this.activeRealm.querySelectorAll('.fade-in');
+    // faders.forEach(fader => {
+    //   fader.classList.remove('visible');
+    //   this.faderObserver.observe(fader);
+    // });
   }
 
-  // 隐藏领域
+  // 隐藏领域 (在跳转模式下不再需要，除非有其他返回主域的逻辑)
   hideRealms() {
-    document.body.classList.remove('realm-active');
-    if (this.activeRealm) {
-      this.activeRealm.classList.remove('active');
-      this.activeRealm = null;
-    }
-    this.backButton.classList.add('hidden');
-    this.animationFrameId = requestAnimationFrame(() => this.animatePlanets());
+    // document.body.classList.remove('realm-active');
+    // if (this.activeRealm) {
+    //   this.activeRealm.classList.remove('active');
+    //   this.activeRealm = null;
+    // }
+    // this.backButton.classList.add('hidden');
+    // this.animationFrameId = requestAnimationFrame(() => this.animatePlanets()); // 重新启动行星动画
   }
 }
 
