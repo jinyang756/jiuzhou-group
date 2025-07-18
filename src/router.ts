@@ -12,6 +12,7 @@ import Xianzhi from './views/Xianzhi.vue';
 import Tools from './views/Tools.vue';
 
 import ShumiYuan from './views/ShumiYuan.vue';
+import XianZhiHuiJu from './views/XianZhiHuiJu.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -50,10 +51,8 @@ const routes: RouteRecordRaw[] = [
     path: '/xunfeitong',
     component: XunFeiTong,
   },
-  {
-    path: '/shumiyuan',
-    component: ShumiYuan,
-  },
+  { path: '/shumiyuan', component: ShumiYuan, },
+  { path: '/xianzhihuiju', component: XianZhiHuiJu, },
 ];
 
 const router = createRouter({

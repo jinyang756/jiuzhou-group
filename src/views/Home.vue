@@ -70,6 +70,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import router from '../router';
 const particleCanvas = ref<HTMLCanvasElement | null>(null);
 const governanceCircle = ref<HTMLElement | null>(null);
 const ecosystemDiagram = ref<HTMLElement | null>(null);
@@ -138,7 +139,7 @@ onMounted(() => {
   // 生态体系节点
   if (ecosystemDiagram.value) {
     const nodesData = [
-      { name: '贤智汇聚', url: 'https://xianzhi.jiuzhougroup.vip' },
+      { name: '贤智汇聚', url: '/xianzhihuiju' },
       { name: '日斗投资', url: 'https://ridou.jiuzhougroup.vip' },
       { name: '聚财众发', url: 'https://jucaizhongfa.jiuzhougroup.vip' },
       { name: '讯飞通', url: 'https://xunfeitong.jiuzhougroup.vip' },
@@ -151,7 +152,11 @@ onMounted(() => {
       const x = (ecosystemDiagram.value!.offsetWidth / 2) + ecoRadius * Math.cos(angle * Math.PI / 180) - 60;
       const y = (ecosystemDiagram.value!.offsetHeight / 2) + ecoRadius * Math.sin(angle * Math.PI / 180) - 30;
       const nodeEl = document.createElement('a');
-      nodeEl.href = node.url; nodeEl.target = '_blank';
+nodeEl.href = '#';
+nodeEl.addEventListener('click', (e) => {
+  e.preventDefault();
+  router.push(node.url);
+});
       nodeEl.className = 'ecosystem-node absolute w-32 h-16 p-2 border border-white/10 rounded-lg flex items-center justify-center text-center text-lg text-white/80 hover:text-accent hover:border-accent';
       nodeEl.style.left = `${x}px`; nodeEl.style.top = `${y}px`;
       nodeEl.textContent = node.name;
