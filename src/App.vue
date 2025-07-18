@@ -6,9 +6,9 @@
     <h1>九州集团</h1>
     <nav style="margin-bottom: 2rem;">
       <router-link to="/">首页</router-link> |
-      <router-link to="/ridou">日斗投资</router-link> |
-      <router-link to="/jucaizhongfa">聚财众发</router-link> |
-      <router-link to="/xunfeitong">讯飞通</router-link>
+      <router-link to="https://jiuzhougroup-rdtz.web.app/" target="_blank">日斗投资</router-link> |
+      <router-link to="https://jiuzhougroup-jczf.web.app/" target="_blank">聚财众发</router-link> |
+      <router-link to="https://jiuzhougroup-xft.web.app/" target="_blank">讯飞通</router-link>
     </nav>
     <router-view />
   </div>

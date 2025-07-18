@@ -11,7 +11,7 @@
       <div class="max-w-4xl px-6">
         <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white fade-in">九州数字工作站</h2>
         <p class="text-lg md:text-2xl text-white/80 mt-6 fade-in" style="transition-delay: 0.2s;">一个专为“九州创造者”打造的、集安全环境与高效工具于一体的数字生态系统。在这里，您的思想将拥有最坚实的壁垒与最锋利的兵刃。</p>
-        <a href="https://portal.jiuzhougroup.vip" target="_blank" class="mt-10 inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in" style="transition-delay: 0.4s;">获取您的工作站</a>
+        <a href="https://jiuzhougroup-xft.web.app/" target="_blank" class="mt-10 inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in" style="transition-delay: 0.4s;">获取您的工作站</a>
       </div>
     </section>
 

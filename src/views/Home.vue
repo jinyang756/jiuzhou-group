@@ -62,7 +62,7 @@
       <div class="text-center">
         <h2 class="text-4xl md:text-5xl text-accent mb-6 fade-in">共赴九州之约</h2>
         <p class="text-xl max-w-2xl mb-10 fade-in">我们寻找的，不是优秀的雇员，而是能与我们共赴星辰大海的“事业共同体”。</p>
-        <a href="https://portal.jiuzhougroup.vip" target="_blank" class="inline-block py-3 px-10 border border-accent text-accent text-xl hover:bg-accent hover:text-black transition-colors duration-300 fade-in">获取沙盘通行证</a>
+        <a href="https://jiuzhougroup-xft.web.app/" target="_blank" class="inline-block py-3 px-10 border border-accent text-accent text-xl hover:bg-accent hover:text-black transition-colors duration-300 fade-in">获取沙盘通行证</a>
       </div>
     </section>
   </div>
@@ -139,11 +139,11 @@ onMounted(() => {
   // 生态体系节点
   if (ecosystemDiagram.value) {
     const nodesData = [
-      { name: '贤智汇聚', url: '/xianzhihuiju' },
-      { name: '日斗投资', url: 'https://ridou.jiuzhougroup.vip' },
-      { name: '聚财众发', url: 'https://jucaizhongfa.jiuzhougroup.vip' },
-      { name: '讯飞通', url: 'https://xunfeitong.jiuzhougroup.vip' },
-      { name: '九州传媒', url: 'https://media.jiuzhougroup.vip' }
+      { name: '贤智汇聚', url: 'https://jiuzhougroup-xzhj.web.app/' },
+      { name: '日斗投资', url: 'https://jiuzhougroup-rdtz.web.app/' },
+      { name: '聚财众发', url: 'https://jiuzhougroup-jczf.web.app/' },
+      { name: '讯飞通', url: 'https://jiuzhougroup-xft.web.app/' },
+      { name: '九州传媒', url: 'https://jiuzhougroup-jzcm.web.app/' }
     ];
     const ecoRadius = ecosystemDiagram.value.offsetHeight / 2 - 40;
     const ecoAngleStep = 360 / nodesData.length;
@@ -152,11 +152,8 @@ onMounted(() => {
       const x = (ecosystemDiagram.value!.offsetWidth / 2) + ecoRadius * Math.cos(angle * Math.PI / 180) - 60;
       const y = (ecosystemDiagram.value!.offsetHeight / 2) + ecoRadius * Math.sin(angle * Math.PI / 180) - 30;
       const nodeEl = document.createElement('a');
-nodeEl.href = '#';
-nodeEl.addEventListener('click', (e) => {
-  e.preventDefault();
-  router.push(node.url);
-});
+nodeEl.href = node.url;
+nodeEl.target = '_blank';
       nodeEl.className = 'ecosystem-node absolute w-32 h-16 p-2 border border-white/10 rounded-lg flex items-center justify-center text-center text-lg text-white/80 hover:text-accent hover:border-accent';
       nodeEl.style.left = `${x}px`; nodeEl.style.top = `${y}px`;
       nodeEl.textContent = node.name;
