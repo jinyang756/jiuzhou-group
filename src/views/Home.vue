@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import router from '../router';
 const particleCanvas = ref<HTMLCanvasElement | null>(null);
 const governanceCircle = ref<HTMLElement | null>(null);
 const ecosystemDiagram = ref<HTMLElement | null>(null);
