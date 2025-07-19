@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>九州集团 - jiuzhougroup.vip | 万象归一</title>
+    <title>九州国际控股集团 - jiuzhougroup.vip | 万象归一</title>
     <link rel="icon" href="https://jiuzhougroup.vip/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -161,7 +161,10 @@
             font-size: 1.1em;
             display: block;
             padding: 5px 0;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            border: 1px solid #8BE9FD;
+            border-radius: 5px;
+            padding: 8px 0;
         }
 
         .universal-footer .portal-item a:hover {
@@ -174,6 +177,21 @@
             margin-top: 5px;
             text-align: center;
             line-height: 1.5;
+        }
+
+        .feature-card a {
+            color: #8BE9FD;
+            text-decoration: none;
+            border: 1px solid #8BE9FD;
+            border-radius: 5px;
+            padding: 8px 15px;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .feature-card a:hover {
+            background-color: #8BE9FD;
+            color: #0d0d1a;
         }
 
         .universal-footer .copyright {
@@ -206,28 +224,24 @@
     <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-10">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-xl md:text-2xl font-bold text-accent">九州集团</h1>
-        <nav>
-          <ul class="flex space-x-6">
-            <li><a href="#" class="text-white hover:text-accent transition-colors">首页</a></li>
-            <li><a href="#core-values" class="text-white hover:text-accent transition-colors">核心理念</a></li>
-            <li><a href="#" class="text-white hover:text-accent transition-colors">集团博客</a></li>
-          </ul>
-        </nav>
-        </div>
+      </div>
     </header>
 
     <section class="min-h-screen flex items-center justify-center text-center bg-black/30 hero-section">
       <div class="max-w-4xl px-6">
         <p class="text-lg md:text-xl text-accent fade-in">万象归一，智创未来</p>
-        <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">九州：星河图</h2>
+        <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">九州星河图</h2>
         <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">九州集团以数字科技为核心，融合多元产业生态，构建一个开放、协作、共赢的数字星河。</p>
-        <a href="#core-values" class="mt-10 inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in" style="transition-delay: 0.6s;">探索九州宇宙</a>
+        <div class="flex flex-row items-center justify-between gap-6 mt-10 fade-in" style="transition-delay: 0.6s;">
+            <a href="#core-values" class="inline-block py-3 px-12 border-2 border-accent text-accent text-lg hover-accent transition-colors duration-300 rounded-lg">探索九州宇宙</a>
+            <a href="#" class="inline-block py-3 px-12 border-2 border-accent text-accent text-lg hover-accent transition-colors duration-300 rounded-lg">书写九州博客</a>
+        </div>
       </div>
     </section>
 
     <section id="core-values" class="py-16 md:py-24 bg-dark-section">
       <div class="container mx-auto px-6 sm:px-8 text-center max-w-6xl">
-        <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">我们的核心理念</h2>
+        <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">九州国际理念宗旨</h2>
         <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
           <div class="feature-card p-6 rounded-lg fade-in">
             <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">智领未来</h3>
@@ -247,14 +261,14 @@
 
     <section class="py-16 md:py-24">
       <div class="container mx-auto px-6 sm:px-8 max-w-5xl">
-        <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">集团核心板块</h2>
+        <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">九州热点栏目</h2>
         <div class="space-y-4 fade-in">
           <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
-              <h3 class="text-lg md:text-xl text-white">九州：沙盘</h3>
-              <p class="text-sm text-white/60">集团战略推演的核心，思想与权力的活的沙盘世界。</p>
+              <h3 class="text-lg md:text-xl text-white">九州沙盘推衍</h3>
+              <p class="text-sm text-white/60">集团战略智能投资AI，金融市场的沙盘世界。</p>
             </div>
-            <a href="https://jiuzhougroup-jzsp.web.app" target="_blank" class="text-accent hover:underline self-start sm:self-center flex-shrink-0">立即前往</a>
+            <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border border-accent p-2 rounded-lg inline-block">建设中，敬请期待</span>
           </div>
           <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
@@ -274,83 +288,24 @@
       </div>
     </section>
 
-    <section class="py-16 md:py-24 bg-dark-section">
-         <div class="container mx-auto px-6 sm:px-8 text-center max-w-6xl">
-             <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">探索九州生态：连接数字星河</h2>
-             <p class="text-lg text-white/80 max-w-3xl mx-auto mb-10 fade-in" style="transition-delay: 0.2s;">九州集团多元业务领域，构建全面数字生态，助您探索无限可能。</p>
-              
-             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in" style="transition-delay: 0.4s;">
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/ridou_logo.svg" alt="日斗投资 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">日斗投资</h3>
-                     <p class="subdomain-description">财富交流与市场研判，把握投资先机。</p>
-                     <a href="https://jiuzhougroup-rdtz.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/jucai_logo.svg" alt="聚财众发 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">聚财众发</h3>
-                     <p class="subdomain-description">基金产品与财富管理，助力财富增长。</p>
-                     <a href="https://jiuzhougroup-jczf.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/xianzhi_logo.svg" alt="贤智汇聚 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">贤智汇聚</h3>
-                     <p class="subdomain-description">社群运营与学院招募，汇聚行业精英。</p>
-                     <a href="https://jiuzhougroup-xzhj.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/xunfeitong_logo.svg" alt="讯飞通 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">讯飞通</h3>
-                     <p class="subdomain-description">AI 选股产品，智慧决策洞察先机。</p>
-                     <a href="https://jiuzhougroup-xft.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/media_logo.svg" alt="九州传媒 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">九州传媒</h3>
-                     <p class="subdomain-description">品牌战役与视觉史诗，讲述九州故事。</p>
-                     <a href="https://jiuzhougroup-jzcm.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/sandbox_logo.svg" alt="九州沙盘 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">九州沙盘</h3>
-                     <p class="subdomain-description">战略推演应用，思想即权力的活的沙盘世界。</p>
-                     <a href="https://jiuzhougroup-jzsp.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 <div class="subdomain-card">
-                     <img src="https://raw.githubusercontent.com/jinyang756/yunwendang/main/logos/passport_logo.svg" alt="统一通行证 Logo" class="subdomain-logo">
-                     <h3 class="subdomain-title">统一通行证</h3>
-                     <p class="subdomain-description">所有成员注册登录入口，安全便捷。</p>
-                     <a href="https://jiuzhougroup-txz.web.app/" target="_blank" class="subdomain-link cta-button">前往官网</a>
-                 </div>
-                 </div>
-         </div>
-     </section>
+    
 
     <section class="py-16 md:py-24 bg-black/30">
         <div class="container mx-auto px-6 sm:px-8 text-center">
             <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">加入九州，共创未来</h2>
             <p class="text-lg max-w-3xl mx-auto mb-8 fade-in">我们诚邀各界精英加入九州集团，共同构建数字新纪元。</p>
-            <a href="https://jiuzhougroup-xzhj.web.app" target="_blank" class="inline-block py-3 px-12 border border-accent text-accent text-lg hover-accent transition-colors duration-300 fade-in">贤智汇聚，立即加入</a>
+            <p class="text-lg text-accent fade-in border border-accent p-3 rounded-lg inline-block">商务合作邮箱：Athen@lianghuatozi.com</p>
         </div>
     </section>
 
     <footer class="universal-footer">
-        <div class="footer-title">九州集团传送门 - 开启无限可能</div>
+        <div class="footer-title">九州星河传送门—探索财富之旅</div>
         <div class="portal-grid">
-            <div class="portal-item"><a href="https://jiuzhougroup.vip/" target="_blank">九州集团主页</a><p>集团总览与品牌故事</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-txz.web.app/" target="_blank">统一通行证</a><p>注册登录，安全便捷</p></div>
+            <div class="portal-item"><a href="#" class="cursor-not-allowed">星际导航手册</a><p>用户须知务必查阅</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup.vip/" target="_blank">九州中央殿堂</a><p>集团总览与品牌故事</p></div>
+            
             <div class="portal-item"><a href="https://jiuzhougroup-jzsp.web.app/" target="_blank">九州：沙盘</a><p>战略推演核心应用</p></div>
-            <div class="portal-item">
-    <div class="tool-dropdown">
-        <a href="#" class="dropdown-toggle text-accent hover:underline">九州工具集</a>
-        <div class="dropdown-content">
-            <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank">九州云手机</a>
-            <a href="https://jiuzhougroup-bsb.web.app/" target="_blank">九州免费css变色版</a>
-            <a href="https://jiuzhougroup-sjksh.web.app/" target="_blank">九州数据可视化工具</a>
-        </div>
-    </div>
-    <p>赋能创造者的百宝匣</p>
-</div>
+            
 <style>
     .tool-dropdown {
         position: relative;
