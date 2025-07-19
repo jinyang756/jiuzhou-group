@@ -9,15 +9,10 @@
     },
     {
       "id": "toolbox",
-      "title": "九州工具箱",
+      "title": "九州工具集",
       "description": "实用工具集合",
       "link": "#",
       "subItems": [
-        {
-          "id": "free-apps",
-          "title": "九州免费产品应用",
-          "link": "#"
-        },
         {
           "id": "cloud-phone",
           "title": "九州云手机",
@@ -42,11 +37,11 @@
       "link": "https://jiuzhougroup.vip/"
     },
     {
-      "id": "sand-table",
-      "title": "九州：沙盘",
-      "description": "战略推演核心应用",
-      "link": "https://jiuzhougroup-jzsp.web.app/"
-    },
+  "id": "sand-table",
+  "title": "九州：沙盘推衍",
+  "description": "战略推演核心应用",
+  "link": "https://jiuzhougroup-jzsp.web.app/"
+},
     {
       "id": "ri-dou",
       "title": "日斗投资官网",

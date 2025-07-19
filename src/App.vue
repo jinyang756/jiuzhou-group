@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <h1>九州集团</h1>
+    <h1>九州国际控股集团</h1>
     <nav style="margin-bottom: 2rem;">
       <router-link to="/">首页</router-link> |
       <router-link to="/blog" style="color: red; font-weight: bold;">集团博客</router-link> |

@@ -1,7 +1,7 @@
 <template>
   <div class="blog-container">
     <header class="blog-header">
-      <h1>九州集团博客</h1>
+      <h1>九州国际控股集团博客</h1>
       <p>分享集团新闻、业务动态和行业见解</p>
     </header>
 
