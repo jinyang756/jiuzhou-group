@@ -1,0 +1,81 @@
+{
+  "title": "九州星河传送门—探索财富之旅",
+  "portals": [
+    {
+      "id": "navigation",
+      "title": "星际导航手册",
+      "description": "用户须知务必查阅",
+      "link": "#"
+    },
+    {
+      "id": "toolbox",
+      "title": "九州工具箱",
+      "description": "实用工具集合",
+      "link": "#",
+      "subItems": [
+        {
+          "id": "free-apps",
+          "title": "九州免费产品应用",
+          "link": "#"
+        },
+        {
+          "id": "cloud-phone",
+          "title": "九州云手机",
+          "link": "https://jiuzhouguoji-ysj.web.app/"
+        },
+        {
+          "id": "css-palette",
+          "title": "九州免费CSS渐变色板",
+          "link": "https://jiuzhougroup-bsb.web.app/"
+        },
+        {
+          "id": "data-visualization",
+          "title": "九州数据可视化工具",
+          "link": "https://jiuzhougroup-sjksh.web.app/"
+        }
+      ]
+    },
+    {
+      "id": "central",
+      "title": "九州中央殿堂",
+      "description": "集团总览与品牌故事",
+      "link": "https://jiuzhougroup.vip/"
+    },
+    {
+      "id": "sand-table",
+      "title": "九州：沙盘",
+      "description": "战略推演核心应用",
+      "link": "https://jiuzhougroup-jzsp.web.app/"
+    },
+    {
+      "id": "ri-dou",
+      "title": "日斗投资官网",
+      "description": "财富交流与市场研判",
+      "link": "https://jiuzhougroup-rdtz.web.app/"
+    },
+    {
+      "id": "ju-cai",
+      "title": "聚财众发官网",
+      "description": "基金产品与财富管理",
+      "link": "https://jiuzhougroup-jczf.web.app/"
+    },
+    {
+      "id": "xun-fei",
+      "title": "讯飞通官网",
+      "description": "AI选股产品发布平台",
+      "link": "https://jiuzhougroup-xft.web.app/"
+    },
+    {
+      "id": "media",
+      "title": "九州传媒官网",
+      "description": "品牌战役与视觉史诗",
+      "link": "https://jiuzhougroup-jzcm.web.app/"
+    },
+    {
+      "id": "xian-zhi",
+      "title": "贤智汇聚官网",
+      "description": "社群运营与学院招募",
+      "link": "https://jiuzhougroup-xzhj.web.app/"
+    }
+  ]
+}

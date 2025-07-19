@@ -1,0 +1,25 @@
+{
+  "columns": [
+    {
+      "id": "sand-table",
+      "title": "九州沙盘推衍",
+      "description": "集团战略智能投资AI，金融市场的沙盘世界。",
+      "status": "under-construction",
+      "link": null
+    },
+    {
+      "id": "ri-dou",
+      "title": "日斗投资",
+      "description": "专业的财富交流与市场研判平台，助您把握投资先机。",
+      "status": "active",
+      "link": "https://jiuzhougroup-rdtz.web.app"
+    },
+    {
+      "id": "ju-cai",
+      "title": "聚财众发",
+      "description": "提供基金产品、财富管理及港元代币化基金服务。",
+      "status": "active",
+      "link": "https://jiuzhougroup-jczf.web.app"
+    }
+  ]
+}

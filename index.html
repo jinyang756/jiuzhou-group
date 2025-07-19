@@ -232,10 +232,15 @@
         <p class="text-lg md:text-xl text-accent fade-in">万象归一，智创未来</p>
         <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">九州星河图</h2>
         <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">九州集团以数字科技为核心，融合多元产业生态，构建一个开放、协作、共赢的数字星河。</p>
-        <div class="flex flex-row items-center justify-between gap-6 mt-10 fade-in" style="transition-delay: 0.6s;">
-            <a href="#core-values" class="inline-block py-3 px-12 border-2 border-accent text-accent text-lg hover-accent transition-colors duration-300 rounded-lg">探索九州宇宙</a>
-            <a href="#" class="inline-block py-3 px-12 border-2 border-accent text-accent text-lg hover-accent transition-colors duration-300 rounded-lg">书写九州博客</a>
-        </div>
+        <a href="#core-values" class="cta-button" id="start-exploration">开始探索</a>
+        <script>
+          document.getElementById('start-exploration').addEventListener('click', function(e) {
+            e.preventDefault();
+            // 全屏显示视频的代码
+            alert('即将进入星际旅行视觉盛宴！');
+            // 这里可以添加实际的视频播放代码
+          });
+        </script>
       </div>
     </section>
 
@@ -268,7 +273,7 @@
               <h3 class="text-lg md:text-xl text-white">九州沙盘推衍</h3>
               <p class="text-sm text-white/60">集团战略智能投资AI，金融市场的沙盘世界。</p>
             </div>
-            <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border border-accent p-2 rounded-lg inline-block">建设中，敬请期待</span>
+            <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border-2 border-accent p-2 rounded-lg inline-block">建设中，敬请期待</span>
           </div>
           <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
@@ -294,7 +299,7 @@
         <div class="container mx-auto px-6 sm:px-8 text-center">
             <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">加入九州，共创未来</h2>
             <p class="text-lg max-w-3xl mx-auto mb-8 fade-in">我们诚邀各界精英加入九州集团，共同构建数字新纪元。</p>
-            <p class="text-lg text-accent fade-in border border-accent p-3 rounded-lg inline-block">商务合作邮箱：Athen@lianghuatozi.com</p>
+            <p class="text-lg text-accent fade-in" style="border: 2px solid #8BE9FD; padding: 10px 20px; border-radius: 8px; display: inline-block;">商务合作邮箱：Athen@lianghuatozi.com</p>
         </div>
     </section>
 
@@ -306,44 +311,7 @@
             
             <div class="portal-item"><a href="https://jiuzhougroup-jzsp.web.app/" target="_blank">九州：沙盘</a><p>战略推演核心应用</p></div>
             
-<style>
-    .tool-dropdown {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-    }
-    .dropdown-toggle {
-        display: block;
-        width: 100%;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.1em;
-        padding: 5px 0;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #2b3a4f;
-        min-width: 100%;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        z-index: 1;
-        border-radius: 0 0 6px 6px;
-    }
-    .dropdown-content a {
-        color: #8BE9FD;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: center;
-    }
-    .dropdown-content a:hover {
-        background-color: #3d4e64;
-        color: #ffffff;
-    }
-    .tool-dropdown:hover .dropdown-content {
-        display: block;
-    }
-</style>
+
             <div class="portal-item"><a href="https://jiuzhougroup-rdtz.web.app/" target="_blank">日斗投资官网</a><p>财富交流与市场研判</p></div>
             <div class="portal-item"><a href="https://jiuzhougroup-jczf.web.app/" target="_blank">聚财众发官网</a><p>基金产品与财富管理</p></div>
             <div class="portal-item"><a href="https://jiuzhougroup-xft.web.app/" target="_blank">讯飞通官网</a><p>AI选股产品发布平台</p></div>

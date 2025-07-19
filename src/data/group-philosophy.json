@@ -1,0 +1,20 @@
+{
+  "title": "九州国际理念宗旨",
+  "values": [
+    {
+      "id": "wisdom",
+      "title": "智领未来",
+      "description": "以前瞻性视野和创新科技，引领行业变革，创造无限可能。"
+    },
+    {
+      "id": "collaboration",
+      "title": "协作共生",
+      "description": "构建开放生态，携手合作伙伴，实现价值共创，繁荣共赢。"
+    },
+    {
+      "id": "unity",
+      "title": "万象归一",
+      "description": "融合多元业务，统一数字基石，形成集团一体化强大合力。"
+    }
+  ]
+}
