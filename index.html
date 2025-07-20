@@ -3,379 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>九州国际控股集团 - jiuzhougroup.vip | 万象归一 | 九州星域</title>
+    <meta name="description" content="九州国际控股集团以数字科技为核心，融合多元产业生态，构建开放、协作、共赢的数字星河。">
+    <title>九州集团（香港）国际控股有限公司 - jiuzhougroup.vip | 万象归一 | 九州星域</title>
     <link rel="icon" href="https://jiuzhougroup.vip/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* 全局样式 - 保持与子域一致的基础设置 */
-        body {
-            font-family: 'Inter', 'Noto Serif SC', serif;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.85);
-            margin: 0;
-            padding: 0;
-            background-color: #0d0d1a; /* 深空主题背景色 */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden; /* 防止水平滚动条 */
-        }
-
-        .container {
-            max-width: 1200px; /* 主域可能更宽 */
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(0,0,0,0.2); /* 容器半透明 */
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            flex-grow: 1;
-        }
-
-        h1, h2, h3, h4 {
-            color: #EAEAEA;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        p {
-            text-align: center;
-            font-size: 1.1em;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 15px;
-        }
-
-        .text-accent { color: #8BE9FD; /* 星河图主题强调色 - 亮青色 */ }
-        .border-accent { border-color: #8BE9FD; }
-        .hover-accent:hover { background-color: #8BE9FD; color: #0d0d1a; }
-        .bg-dark-section { background-color: rgba(0,0,0,0.4); }
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        .cta-button {
-            display: block;
-            width: fit-content;
-            margin: 30px auto;
-            padding: 12px 25px;
-            background-color: transparent;
-            border: 1px solid #8BE9FD; /* 强调色边框 */
-            color: #8BE9FD;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-            font-size: 1.05em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background-color: #8BE9FD;
-            color: #0d0d1a;
-            transform: translateY(-2px);
-        }
-
-        /* 主域特定样式 - 星河图效果 */
-        .galaxy-background {
-            background: #0d0d1a;
-            background-image:
-                radial-gradient(at 20% 50%, rgba(139, 233, 253, 0.1), transparent), /* Accent light */
-                radial-gradient(at 80% 30%, rgba(255, 121, 198, 0.1), transparent), /* Pink hint */
-                radial-gradient(at 50% 100%, rgba(189, 147, 249, 0.1), transparent), /* Purple hint */
-                url('https://example.com/path/to/your/galaxy-texture.webp'); /* 假设有一个星空纹理图 */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            position: relative;
-            z-index: 0;
-        }
-
-        /* 标题和描述的特殊效果 */
-        .hero-section h2 {
-            text-shadow: 0 0 10px rgba(139, 233, 253, 0.6), 0 0 20px rgba(139, 233, 253, 0.4);
-            letter-spacing: 0.05em;
-        }
-
-        .hero-section p {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        .feature-card {
-            background-color: rgba(255, 255, 255, 0.05); /* 半透明卡片 */
-            border: 1px solid rgba(139, 233, 253, 0.3); /* 强调色边框 */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: #8BE9FD;
-            box-shadow: 0 8px 25px rgba(139, 233, 253, 0.2);
-        }
-        .feature-card a {
-            color: #8BE9FD;
-            text-decoration: none;
-            border: 1px solid #8BE9FD;
-            border-radius: 5px;
-            padding: 8px 15px;
-            display: inline-block;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .feature-card a:hover {
-            background-color: #8BE9FD;
-            color: #0d0d1a;
-        }
-
-        /* --- 模态框样式 --- */
-        #star-manual-modal {
-            display: none; /* 默认隐藏 */
-            position: fixed; /* 固定定位 */
-            z-index: 1000; /* 确保在最顶层 */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; /* 允许滚动 */
-            background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px); /* 磨砂效果 */
-            -webkit-backdrop-filter: blur(5px); /* 兼容 Safari */
-        }
-        #star-manual-modal.show {
-            display: flex; /* 显示模态框 */
-        }
-        .modal-content {
-            background-color: #1a1a2e; /* 模态框内容背景 */
-            margin: auto; /* 居中 */
-            padding: 40px;
-            border: 1px solid #2e3b55;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 800px; /* 限制最大宽度 */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            position: relative;
-            transform: scale(0.9); /* 初始缩小 */
-            opacity: 0; /* 初始透明 */
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-        #star-manual-modal.show .modal-content {
-            transform: scale(1); /* 显示时放大 */
-            opacity: 1; /* 显示时完全不透明 */
-        }
-        .modal-close-button {
-            color: #aaa;
-            font-size: 30px;
-            font-weight: bold;
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        .modal-close-button:hover,
-        .modal-close-button:focus {
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .modal-content h2 {
-            color: #8BE9FD; /* 模态框标题强调色 */
-            margin-bottom: 30px;
-        }
-
-        /* 模态框内的手册条目样式 (与之前一致) */
-        .manual-section .manual-item {
-            background-color: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(139, 233, 253, 0.4);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease-out;
-        }
-        .manual-section .manual-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 25px;
-            cursor: pointer;
-            background-color: rgba(139, 233, 253, 0.05);
-            transition: background-color 0.3s ease;
-        }
-        .manual-section .manual-header:hover {
-            background-color: rgba(139, 233, 253, 0.1);
-        }
-        .manual-section .manual-title {
-            color: #8BE9FD;
-            font-size: 1.25em;
-            margin: 0;
-            text-align: left; /* 标题左对齐 */
-        }
-        .manual-section .manual-icon {
-            color: #8BE9FD;
-            font-size: 1.5em;
-            transition: transform 0.3s ease;
-        }
-        .manual-section .manual-header.active .manual-icon {
-            transform: rotate(90deg);
-        }
-        .manual-section .manual-content {
-            max-height: 0;
-            opacity: 0;
-            padding: 0 25px;
-            transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
-            overflow: hidden; /* 确保内容折叠时隐藏 */
-        }
-        .manual-section .manual-content.open {
-            max-height: 500px; /* 足够大的高度，确保内容完全展开 */
-            opacity: 1;
-            padding-top: 15px;
-            padding-bottom: 25px;
-        }
-        .manual-section .manual-content p {
-            text-align: left;
-            font-size: 1em;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 10px;
-        }
-        .manual-section .manual-content ul {
-            list-style: disc;
-            margin-left: 20px;
-            text-align: left;
-            color: rgba(255,255,255,0.8);
-        }
-        .manual-section .manual-content li {
-            margin-bottom: 5px;
-        }
-        .manual-section .manual-content a {
-            color: #8BE9FD;
-            text-decoration: underline;
-            transition: color 0.2s ease;
-        }
-        .manual-section .manual-content a:hover {
-            color: #ffffff;
-        }
-
-
-        /* Universal Footer Styles */
-        .universal-footer {
-            background-color: var(--color-footer-bg);
-            color: var(--color-primary-text);
-            padding: 30px 20px; /* 调整回主域的 padding */
-            text-align: center;
-            border-top: 1px solid var(--color-footer-border);
-            margin-top: 50px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .universal-footer .footer-title {
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            color: var(--color-footer-link);
-            font-weight: bold;
-        }
-
-        .universal-footer .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto 30px auto;
-            padding: 0 10px;
-        }
-
-        .universal-footer .portal-item {
-            background-color: var(--color-footer-item-bg);
-            border-radius: 6px;
-            padding: 15px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .universal-footer .portal-item:hover {
-            background-color: var(--color-footer-item-hover);
-            transform: translateY(-5px);
-        }
-
-        .universal-footer .portal-item a {
-            color: var(--color-footer-link);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            display: block;
-            padding: 8px 0;
-            border: 1px solid var(--color-footer-link);
-            border-radius: 5px;
-            transition: color 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
-        }
-
-        .universal-footer .portal-item a.cursor-not-allowed {
-            cursor: not-allowed;
-            opacity: 0.6;
-            background-color: transparent !important;
-            color: var(--color-footer-link) !important;
-            border-color: var(--color-footer-link) !important;
-        }
-        .universal-footer .portal-item a.hover-accent:hover {
-            background-color: var(--color-footer-link);
-            color: var(--color-dark-bg);
-        }
-
-        .universal-footer .portal-item a:hover {
-            color: #ffffff;
-        }
-
-        .universal-footer .portal-item p {
-            font-size: 0.9em;
-            color: rgba(255,255,255,0.7);
-            margin-top: 5px;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .universal-footer .copyright {
-            margin-top: 25px;
-            font-size: 0.85em;
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            .container { margin: 20px; padding: 15px; }
-            h1 { font-size: 1.8em; }
-            .hero-section h2 { font-size: 3em; }
-            .hero-section p { font-size: 1em; }
-            .universal-footer .footer-title { font-size: 1.1em; }
-            .universal-footer .portal-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-            /* 模态框响应式调整 */
-            #star-manual-modal .modal-content { width: 95%; padding: 20px; }
-        }
-
-        @media (max-width: 480px) {
-            .container { margin: 10px; padding: 10px; }
-            h1 { font-size: 1.5em; }
-            .hero-section h2 { font-size: 2.5em; }
-            .hero-section p { font-size: 0.9em; }
-            .universal-footer .portal-grid { grid-template-columns: 1fr; }
-            .universal-footer .portal-item { padding: 12px; }
-            /* 模态框响应式调整 */
-            #star-manual-modal .modal-content { padding: 15px; }
-            #star-manual-modal .modal-close-button { font-size: 24px; top: 10px; right: 15px; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "九州国际控股集团",
+      "url": "https://jiuzhougroup.vip",
+      "logo": "https://picsum.photos/id/237/200/200",
+      "description": "九州国际控股集团以数字科技为核心，融合多元产业生态，构建开放、协作、共赢的数字星河。"
+    }
+    </script>
 </head>
 <body class="galaxy-background">
     <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-10">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-accent">九州国际控股集团星域</h1>
+        <nav class="container mx-auto flex justify-between items-center">
+             <h1 class="text-xl md:text-2xl font-bold text-accent">九州集团星域空间</h1>
         </div>
     </header>
 
-    <section class="min-h-screen flex items-center justify-center text-center bg-black/30 hero-section">
+    <main class="min-h-screen flex items-center justify-center text-center bg-black/30 hero-section">
+             <img src="https://picsum.photos/id/1/1200/600" alt="星河背景" width="1200" height="600" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-40">
         <div class="max-w-4xl px-6">
+            <img src="https://picsum.photos/id/237/200/200" alt="九州集团标志" width="64" height="64" loading="lazy" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-accent">
             <p class="text-lg md:text-xl text-accent fade-in">万象归一  智创未来</p>
-            <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">九州星河图</h2>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in fade-in-delay-200">九州星河图</h2>
             <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">九州国际控股集团以数字科技为核心，融合多元产业生态，构建一个开放、协作、共赢的数字星河。</p>
             <a href="#core-values" class="cta-button" id="start-exploration">开始探索</a>
         </div>
@@ -389,11 +46,11 @@
                     <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">智领未来</h3>
                     <p>以前瞻性视野和创新科技，引领行业变革，创造无限可能。</p>
                 </div>
-                <div class="feature-card p-6 rounded-lg fade-in" style="transition-delay: 0.2s;">
+                <div class="feature-card p-6 rounded-lg fade-in fade-in-delay-200">
                     <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">协作共生</h3>
                     <p>构建开放生态，携手合作伙伴，实现价值共创，繁荣共赢。</p>
                 </div>
-                <div class="feature-card p-6 rounded-lg fade-in" style="transition-delay: 0.4s;">
+                <div class="feature-card p-6 rounded-lg fade-in fade-in-delay-400">
                     <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">万象归一</h3>
                     <p>融合多元业务，统一数字基石，形成集团一体化强大合力。</p>
                 </div>
@@ -407,7 +64,7 @@
             <div class="space-y-4 fade-in">
                 <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                     <div>
-                        <h3 class="text-lg md:text-xl text-white">九州沙盘推衍</h3>
+                        <h3 class="text-lg md:text-xl text-white">九州战略沙盘</h3>
                         <p class="text-sm text-white/60">集团战略智能投资AI，金融市场的沙盘世界。</p>
                     </div>
                     <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border-2 border-accent p-2 rounded-lg inline-block">建设中，敬请期待</span>
@@ -464,24 +121,24 @@
     <footer class="universal-footer">
         <div class="footer-title">九州星河传送门—探索财富之旅</div>
         <div class="portal-grid">
-            <div class="portal-item"><a href="#" id="open-manual-modal" class="hover-accent">星际导航手册</a><p>用户须知务必查阅</p></div>
+            <div class="portal-item"><a href="#" class="open-manual-modal hover-accent">星际导航手册</a><p>用户须知务必查阅</p></div>
             <div class="portal-item"><a href="#toolbox" class="hover-accent">九州工具集</a><p>实用工具集合</p></div>
             <div class="portal-item"><a href="https://jiuzhougroup.vip/" target="_blank">九州中央殿堂</a><p>集团总览与品牌故事</p></div>
             
-            <div class="portal-item"><a href="https://jiuzhougroup-jzsp.web.app/" target="_blank">九州：沙盘</a><p>战略推演核心应用</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-jzsp.web.app/" target="_blank">九州战略沙盘</a><p>战略推演核心应用</p></div>
             
-            <div class="portal-item"><a href="https://jiuzhougroup-rdtz.web.app/" target="_blank">日斗投资官网</a><p>财富交流与市场研判</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-jczf.web.app/" target="_blank">聚财众发官网</a><p>基金产品与财富管理</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-xft.web.app/" target="_blank">讯飞通官网</a><p>AI选股产品发布平台</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-jzcm.web.app/" target="_blank">九州传媒官网</a><p>品牌战役与视觉史诗</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-xzhj.web.app/" target="_blank">贤智汇聚官网</a><p>社群运营与学院招募</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-rdtz.web.app/" target="_blank">日斗投资星域</a><p>财富交流与市场研判</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-jczf.web.app/" target="_blank">聚财众发星域</a><p>基金产品与财富管理</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-xft.web.app/" target="_blank">讯飞通星域</a><p>AI选股产品发布平台</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-jzcm.web.app/" target="_blank">九州传媒星域</a><p>品牌战役与视觉史诗</p></div>
+            <div class="portal-item"><a href="https://jiuzhougroup-xzhj.web.app/" target="_blank">贤智汇聚星域</a><p>社群运营与学院招募</p></div>
         </div>
-        <p class="copyright">&copy; 2025 九州国际控股集团. All Rights Reserved.</p>
+        <p class="copyright">Copyright © 2025 九州集团（香港）国际控股有限公司 Designed 粤ICP备18062888号 AthenDrakvese.</p>
     </footer>
 
     <div id="star-manual-modal">
         <div class="modal-content manual-section">
-            <span class="modal-close-button" id="close-manual-modal">&times;</span>
+            <span class="modal-close-button close-manual-modal">&times;</span>
             <h2 class="text-center">九州星际导航手册</h2>
             <div class="space-y-4">
                 <div class="manual-item fade-in">
@@ -549,7 +206,7 @@
                         <span class="manual-icon">></span>
                     </div>
                     <div class="manual-content">
-                        <p>九州集团致力于保障所有用户的数字安全和个人隐私。我们的平台严格遵守国际数据保护标准和地方法律法规。</p>
+                        <p>九州国际集团（香港）控股有限公司从事核心国际业务平台，凭借九州平台的优势，立足香港借助香港这个全球金融、航运、国际自由贸易中心城市之便利，为全球客户提供供应链金融、消费电子（手机、平板、电子书等）OEM/odm专业的服务。</p>
                         <ul>
                             <li>**数据加密：** 所有数据传输均采用行业领先的端到端加密技术。</li>
                             <li>**隐私保护：** 严格遵循用户隐私政策，未经授权不会共享您的个人信息。</li>
@@ -571,8 +228,7 @@
                         <p>如果您在探索九州星河图或使用各项服务时遇到任何问题，欢迎通过以下渠道与我们联系：</p>
                         <ul>
                             <li>**商务合作邮箱：** <a href="mailto:Athen@lianghuatozi.com">Athen@lianghuatozi.com</a></li>
-                            <li>**日斗投资交流群：** 请访问日斗投资官网获取最新群组信息。</li>
-                            <li>**在线客服：** 敬请期待后续上线。</li>
+                            <li>**商务致电：+852 9061 1536</li>
                         </ul>
                         <p>
                             我们的专业团队将竭诚为您提供帮助与支持。
@@ -583,62 +239,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const faders = document.querySelectorAll('.fade-in');
-            const appearOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-            const appearOnScroll = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                });
-            }, appearOptions);
-            faders.forEach(fader => appearOnScroll.observe(fader));
-
-            // 星际导航手册模态框功能
-            const openManualModalBtn = document.getElementById('open-manual-modal');
-            const manualModal = document.getElementById('star-manual-modal');
-            const closeManualModalBtn = document.getElementById('close-manual-modal');
-            const manualHeaders = document.querySelectorAll('.manual-header');
-
-            if (openManualModalBtn && manualModal && closeManualModalBtn) {
-                openManualModalBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    manualModal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                });
-
-                closeManualModalBtn.addEventListener('click', () => {
-                    manualModal.classList.remove('show');
-                    document.body.style.overflow = '';
-                    manualHeaders.forEach(header => {
-                        header.classList.remove('active');
-                        header.nextElementSibling.classList.remove('open');
-                    });
-                });
-
-                manualModal.addEventListener('click', (e) => {
-                    if (e.target === manualModal) {
-                        manualModal.classList.remove('show');
-                        document.body.style.overflow = '';
-                        manualHeaders.forEach(header => {
-                            header.classList.remove('active');
-                            header.nextElementSibling.classList.remove('open');
-                        });
-                    }
-                });
-            }
-
-            // 星际导航手册折叠功能 (应用于模态框内的条目)
-            manualHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    header.classList.toggle('active');
-                    content.classList.toggle('open');
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

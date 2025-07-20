@@ -1,0 +1,358 @@
+/* 全局样式 - 保持与子域一致的基础设置 */
+body {
+    font-family: 'Inter', 'Noto Serif SC', serif;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+    padding: 0;
+    background-color: #0d0d1a; /* 深空主题背景色 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* 防止水平滚动条 */
+}
+
+.container {
+    max-width: 1200px; /* 主域可能更宽 */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.2); /* 容器半透明 */
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    flex-grow: 1;
+}
+
+h1, h2, h3, h4 {
+    color: #EAEAEA;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+p {
+    text-align: center;
+    font-size: 1.1em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 15px;
+}
+
+.text-accent { color: #8BE9FD; /* 星河图主题强调色 - 亮青色 */ }
+.border-accent { border-color: #8BE9FD; }
+.hover-accent:hover { background-color: #8BE9FD; color: #0d0d1a; }
+.bg-dark-section { background-color: rgba(0,0,0,0.4); }
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.cta-button {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 12px 25px;
+    background-color: transparent;
+    border: 1px solid #8BE9FD; /* 强调色边框 */
+    color: #8BE9FD;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    font-size: 1.05em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #8BE9FD;
+    color: #0d0d1a;
+    transform: translateY(-2px);
+}
+
+/* 主域特定样式 - 星河图效果 */
+.galaxy-background {
+    background: #0d0d1a;
+    background-image:
+        radial-gradient(at 20% 50%, rgba(139, 233, 253, 0.1), transparent), /* Accent light */
+        radial-gradient(at 80% 30%, rgba(255, 121, 198, 0.1), transparent), /* Pink hint */
+        radial-gradient(at 50% 100%, rgba(189, 147, 249, 0.1), transparent), /* Purple hint */
+        url('https://example.com/path/to/your/galaxy-texture.webp'); /* 假设有一个星空纹理图 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 0;
+}
+
+/* 标题和描述的特殊效果 */
+.hero-section h2 {
+    text-shadow: 0 0 10px rgba(139, 233, 253, 0.6), 0 0 20px rgba(139, 233, 253, 0.4);
+    letter-spacing: 0.05em;
+}
+
+.hero-section p {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.05); /* 半透明卡片 */
+    border: 1px solid rgba(139, 233, 253, 0.3); /* 强调色边框 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: #8BE9FD;
+    box-shadow: 0 8px 25px rgba(139, 233, 253, 0.2);
+}
+.feature-card a {
+    color: #8BE9FD;
+    text-decoration: none;
+    border: 1px solid #8BE9FD;
+    border-radius: 5px;
+    padding: 8px 15px;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.feature-card a:hover {
+    background-color: #8BE9FD;
+    color: #0d0d1a;
+}
+
+/* --- 模态框样式 --- */
+#star-manual-modal {
+    display: none; /* 默认隐藏 */
+    position: fixed; /* 固定定位 */
+    z-index: 1000; /* 确保在最顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 允许滚动 */
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* 磨砂效果 */
+    -webkit-backdrop-filter: blur(5px); /* 兼容 Safari */
+}
+#star-manual-modal.show {
+    display: flex; /* 显示模态框 */
+}
+.modal-content {
+    background-color: #1a1a2e; /* 模态框内容背景 */
+    margin: auto; /* 居中 */
+    padding: 40px;
+    border: 1px solid #2e3b55;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px; /* 限制最大宽度 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform: scale(0.9); /* 初始缩小 */
+    opacity: 0; /* 初始透明 */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+#star-manual-modal.show .modal-content {
+    transform: scale(1); /* 显示时放大 */
+    opacity: 1; /* 显示时完全不透明 */
+}
+.modal-close-button {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.modal-close-button:hover,
+.modal-close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-content h2 {
+    color: #8BE9FD; /* 模态框标题强调色 */
+    margin-bottom: 30px;
+}
+
+/* 模态框内的手册条目样式 (与之前一致) */
+.manual-section .manual-item {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(139, 233, 253, 0.4);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+.manual-section .manual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 25px;
+    cursor: pointer;
+    background-color: rgba(139, 233, 253, 0.05);
+    transition: background-color 0.3s ease;
+}
+.manual-section .manual-header:hover {
+    background-color: rgba(139, 233, 253, 0.1);
+}
+.manual-section .manual-title {
+    color: #8BE9FD;
+    font-size: 1.25em;
+    margin: 0;
+    text-align: left; /* 标题左对齐 */
+}
+.manual-section .manual-icon {
+    color: #8BE9FD;
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+}
+.manual-section .manual-header.active .manual-icon {
+    transform: rotate(90deg);
+}
+.manual-section .manual-content {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 25px;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+    overflow: hidden; /* 确保内容折叠时隐藏 */
+}
+.manual-section .manual-content.open {
+    max-height: 500px; /* 足够大的高度，确保内容完全展开 */
+    opacity: 1;
+    padding-top: 15px;
+    padding-bottom: 25px;
+}
+.manual-section .manual-content p {
+    text-align: left;
+    font-size: 1em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+}
+.manual-section .manual-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    text-align: left;
+    color: rgba(255,255,255,0.8);
+}
+.manual-section .manual-content li {
+    margin-bottom: 5px;
+}
+.manual-section .manual-content a {
+    color: #8BE9FD;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+.manual-section .manual-content a:hover {
+    color: #ffffff;
+}
+
+
+/* Universal Footer Styles */
+.universal-footer {
+    background-color: #1a1a2e;
+    color: rgba(255,255,255,0.85);
+    padding: 30px 20px; /* 调整回主域的 padding */
+    text-align: center;
+    border-top: 1px solid #8BE9FD;
+    margin-top: 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.universal-footer .footer-title {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #8BE9FD;
+    font-weight: bold;
+}
+
+.universal-footer .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    padding: 0 10px;
+}
+
+.universal-footer .portal-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #8BE9FD;
+    border-radius: 6px;
+    padding: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.universal-footer .portal-item:hover {
+    background-color: rgba(139, 233, 253, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(139, 233, 253, 0.3);
+}
+
+.universal-footer .portal-item a {
+    color: #8BE9FD;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: block;
+    padding: 8px 0;
+    border: 1px solid #8BE9FD;
+    border-radius: 5px;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+}
+
+.universal-footer .portal-item a.cursor-not-allowed {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: transparent !important;
+    color: var(--color-footer-link) !important;
+    border-color: var(--color-footer-link) !important;
+}
+.universal-footer .portal-item a.hover-accent:hover {
+    background-color: var(--color-footer-link);
+    color: var(--color-dark-bg);
+}
+
+.universal-footer .portal-item a:hover {
+    color: #ffffff;
+}
+
+.universal-footer .portal-item p {
+    font-size: 0.9em;
+    color: rgba(255,255,255,0.7);
+    margin-top: 5px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.universal-footer .copyright {
+    margin-top: 25px;
+    font-size: 0.85em;
+    color: rgba(255,255,255,0.5);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container { margin: 20px; padding: 15px; }
+    h1 { font-size: 1.8em; }
+    .hero-section h2 { font-size: 3em; }
+    .hero-section p { font-size: 1em; }
+    .universal-footer .footer-title { font-size: 1.1em; }
+    .universal-footer .portal-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+    /* 模态框响应式调整 */
+    #star-manual-modal .modal-content { width: 95%; padding: 20px; }
+}
+
+@media (max-width: 480px) {
+    .container { margin: 10px; padding: 10px; }
+    h1 { font-size: 1.5em; }
+    .hero-section h2 { font-size: 2.5em; }
+    .hero-section p { font-size: 0.9em; }
+    .universal-footer .portal-grid { grid-template-columns: 1fr; }
+    .universal-footer .portal-item { padding: 12px; }
+    /* 模态框响应式调整 */
+    #star-manual-modal .modal-content { padding: 15px; }
+    #star-manual-modal .modal-close-button { font-size: 24px; top: 10px; right: 15px; }
+}
