@@ -8,17 +8,6 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('./views/Home.vue'),
   },
-  {
-    path: '/blog',
-    name: 'blog',
-    component: () => import('./views/Blog.vue'),
-  },
-  {
-    path: '/blog/:id',
-    name: 'blog-post',
-    component: () => import('./views/BlogPost.vue'),
-    props: true
-  },
 ];
 
 const router = createRouter({
