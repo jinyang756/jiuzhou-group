@@ -3,188 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="九州国际控股集团以数字科技为核心，融合多元产业生态，构建开放、协作、共赢的数字星河。">
-    <title>九州集团（香港）国际控股有限公司 - jiuzhougroup.vip | 万象归一 | 九州星域</title>
-    <link rel="icon" href="https://jiuzhougroup.vip/favicon.ico" type="image/x-icon">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" as="style">
+    <title>九州集团（香港）国际控股有限公司 - 星河图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "九州国际控股集团",
-      "url": "https://jiuzhougroup.vip",
-      "logo": "https://picsum.photos/id/237/200/200",
-      "description": "九州国际控股集团以数字科技为核心，融合多元产业生态，构建开放、协作、共赢的数字星河。"
-    }
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#8BE9FD',
+                        dark: '#0d0d1a',
+                        'dark-light': '#1a1a2e',
+                        'accent-light': 'rgba(139, 233, 253, 0.2)',
+                        'pink-hint': 'rgba(255, 121, 198, 0.2)',
+                        'purple-hint': 'rgba(189, 147, 249, 0.2)',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        'noto-serif': ['"Noto Serif SC"', 'serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(139, 233, 253, 0.5)',
+                        'glow-lg': '0 0 30px rgba(139, 233, 253, 0.6)',
+                    }
+                },
+            }
+        }
     </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 0 15px rgba(139, 233, 253, 0.8), 0 0 30px rgba(139, 233, 253, 0.6);
+            }
+            .text-shadow-sm {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            }
+            .bg-gradient-deep {
+                background: linear-gradient(to bottom, #0d0d1a, #00001a);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body class="galaxy-background">
-    <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-10">
-        <nav class="container mx-auto flex justify-between items-center">
-             <h1 class="text-xl md:text-2xl font-bold text-accent">九州集团星域 </h1>
-        </div>
-    </header>
-
-    <main class="min-h-screen flex items-center justify-center text-center bg-black/30 hero-section">
-             <img src="https://picsum.photos/id/1/1200/600" alt="星河背景" width="1200" height="600" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-40">
-        <div class="max-w-4xl px-6">
-            <img src="https://picsum.photos/id/237/200/200" alt="九州集团标志" width="64" height="64" loading="lazy" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-accent">
-            <p class="text-lg md:text-xl text-accent fade-in">万象归一  智创未来</p>
-            <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in fade-in-delay-200">九州星河图</h2>
-            <p class="text-lg md:text-xl text-white/80 mt-6 fade-in" style="transition-delay: 0.4s;">九州国际控股集团以数字科技为核心，融合多元产业生态，构建一个开放、协作、共赢的数字星河。</p>
-            <a href="#core-values" class="cta-button" id="start-exploration">开始探索</a>
-        </div>
-    </section>
-
-    <section id="core-values" class="py-16 md:py-24 bg-dark-section">
-        <div class="container mx-auto px-6 sm:px-8 text-center max-w-6xl">
-            <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">九州国际理念宗旨</h2>
-            <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
-                <div class="feature-card p-6 rounded-lg fade-in">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">智领未来</h3>
-                    <p>以前瞻性视野和创新科技，引领行业变革，创造无限可能。</p>
+<body class="font-inter bg-dark text-white min-h-screen flex flex-col">
+    <!-- Canvas 星空背景 -->
+    <canvas id="starfield" class="absolute inset-0 z-0"></canvas>
+    
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- 页头 -->
+        <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-20 backdrop-blur-md bg-dark/60">
+            <nav class="container mx-auto flex justify-between items-center">
+                <h1 class="text-xl md:text-2xl font-bold text-accent">九州集团星域</h1>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#core-values" class="text-white/80 hover:text-accent transition-colors">核心价值</a>
+                    <a href="#toolbox" class="text-white/80 hover:text-accent transition-colors">工具集</a>
+                    <a href="#contact" class="text-white/80 hover:text-accent transition-colors">联系我们</a>
                 </div>
-                <div class="feature-card p-6 rounded-lg fade-in fade-in-delay-200">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">协作共生</h3>
-                    <p>构建开放生态，携手合作伙伴，实现价值共创，繁荣共赢。</p>
-                </div>
-                <div class="feature-card p-6 rounded-lg fade-in fade-in-delay-400">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">万象归一</h3>
-                    <p>融合多元业务，统一数字基石，形成集团一体化强大合力。</p>
+                <button class="md:hidden text-white text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </nav>
+        </header>
+
+        <!-- 英雄区域 -->
+        <main class="min-h-screen flex items-center justify-center text-center relative pt-20">
+            <div class="max-w-4xl px-6">
+                <img src="https://picsum.photos/id/237/200/200" alt="九州集团标志" class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-accent hover-scale">
+                <p class="text-lg md:text-xl text-accent fade-in">万象归一  智创未来</p>
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">九州星河图</h2>
+                <p class="text-lg md:text-xl text-white/80 mt-6 fade-in text-shadow-sm" style="transition-delay: 0.4s;">
+                    九州国际控股集团以数字科技为核心，融合多元产业生态，构建一个开放、协作、共赢的数字星河。
+                </p>
+                <a href="#core-values" class="mt-8 inline-block px-8 py-3 bg-accent/20 border border-accent text-accent rounded-full hover:bg-accent hover:text-dark transition-all duration-300 hover-scale">
+                    开始探索
+                </a>
+            </div>
+        </main>
+
+        <!-- 核心价值 -->
+        <section id="core-values" class="py-16 md:py-24 bg-dark-light/60 backdrop-blur-sm">
+            <div class="container mx-auto px-6 sm:px-8 text-center max-w-6xl">
+                <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">九州国际理念宗旨</h2>
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-lightbulb-o text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">智领未来</h3>
+                        </div>
+                        <p class="text-white/70">以前瞻性视野和创新科技，引领行业变革，创造无限可能。</p>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.2s;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-handshake-o text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">协作共生</h3>
+                        </div>
+                        <p class="text-white/70">构建开放生态，携手合作伙伴，实现价值共创，繁荣共赢。</p>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.4s;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-globe text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">万象归一</h3>
+                        </div>
+                        <p class="text-white/70">融合多元业务，统一数字基石，形成集团一体化强大合力。</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-16 md:py-24">
-        <div class="container mx-auto px-6 sm:px-8 max-w-5xl">
-            <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">九州热点栏目</h2>
-            <div class="space-y-4 fade-in">
-                <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                    <div>
-                        <h3 class="text-lg md:text-xl text-white">九州战略沙盘</h3>
-                        <p class="text-sm text-white/60">集团战略智能投资AI，金融市场的沙盘世界。</p>
+        <!-- 热点栏目 -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-6 sm:px-8 max-w-5xl">
+                <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">九州热点栏目</h2>
+                <div class="space-y-6 fade-in">
+                    <div class="bg-dark-light/30 p-6 rounded-xl border border-accent/20 hover:border-accent/50 transition-all duration-300 hover-scale">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                            <div>
+                                <h3 class="text-lg md:text-xl text-white">九州战略沙盘</h3>
+                                <p class="text-sm text-white/60">集团战略智能投资AI，金融市场的沙盘世界。</p>
+                            </div>
+                            <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border border-accent/50 px-4 py-2 rounded-lg inline-block">建设中，敬请期待</span>
+                        </div>
                     </div>
-                    <span class="text-accent self-start sm:self-center flex-shrink-0 cursor-not-allowed border-2 border-accent p-2 rounded-lg inline-block">建设中，敬请期待</span>
-                </div>
-                <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                    <div>
-                        <h3 class="text-lg md:text-xl text-white">日斗投资</h3>
-                        <p class="text-sm text-white/60">专业的财富交流与市场研判平台，助您把握投资先机。</p>
+                    <div class="bg-dark-light/30 p-6 rounded-xl border border-accent/20 hover:border-accent/50 transition-all duration-300 hover-scale">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                            <div>
+                                <h3 class="text-lg md:text-xl text-white">日斗投资</h3>
+                                <p class="text-sm text-white/60">专业的财富交流与市场研判平台，助您把握投资先机。</p>
+                            </div>
+                            <a href="https://jiuzhougroup-rdtz.web.app" target="_blank" class="text-accent hover:text-white self-start sm:self-center flex-shrink-0 border border-accent/50 px-4 py-2 rounded-lg inline-block hover:bg-accent/10 transition-all">了解更多</a>
+                        </div>
                     </div>
-                    <a href="https://jiuzhougroup-rdtz.web.app" target="_blank" class="text-accent hover:underline self-start sm:self-center flex-shrink-0">了解更多</a>
-                </div>
-                <div class="feature-card p-4 rounded-lg flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                    <div>
-                        <h3 class="text-lg md:text-xl text-white">聚财众发</h3>
-                        <p class="text-sm text-white/60">提供基金产品、财富管理及港元代币化基金服务。</p>
+                    <div class="bg-dark-light/30 p-6 rounded-xl border border-accent/20 hover:border-accent/50 transition-all duration-300 hover-scale">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                            <div>
+                                <h3 class="text-lg md:text-xl text-white">聚财众发</h3>
+                                <p class="text-sm text-white/60">提供基金产品、财富管理及港元代币化基金服务。</p>
+                            </div>
+                            <a href="https://jiuzhougroup-jczf.web.app" target="_blank" class="text-accent hover:text-white self-start sm:self-center flex-shrink-0 border border-accent/50 px-4 py-2 rounded-lg inline-block hover:bg-accent/10 transition-all">探索产品</a>
+                        </div>
                     </div>
-                    <a href="https://jiuzhougroup-jczf.web.app" target="_blank" class="text-accent hover:underline self-start sm:self-center flex-shrink-0">探索产品</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="toolbox" class="py-16 md:py-24 bg-black/30">
-        <div class="container mx-auto px-6 sm:px-8 max-w-6xl">
-            <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">九州工具集</h2>
-            <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
-                <div class="feature-card p-6 rounded-lg fade-in">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">九州云手机</h3>
-                    <p>随时随地访问您的手机应用，安全高效。</p>
-                    <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank" class="mt-4">立即访问</a>
-                </div>
-                <div class="feature-card p-6 rounded-lg fade-in" style="transition-delay: 0.2s;">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">九州免费CSS渐变色板</h3>
-                    <p>精美的CSS渐变色板，让您的设计更加出色。</p>
-                    <a href="https://jiuzhougroup-bsb.web.app/" target="_blank" class="mt-4">立即访问</a>
-                </div>
-                <div class="feature-card p-6 rounded-lg fade-in" style="transition-delay: 0.4s;">
-                    <h3 class="text-2xl text-white border-l-4 border-accent pl-4 mb-4">九州数据可视化工具</h3>
-                    <p>强大的数据可视化工具，让数据更有价值。</p>
-                    <a href="https://jiuzhougroup-sjksh.web.app/" target="_blank" class="mt-4">立即访问</a>
+        <!-- 工具集 -->
+        <section id="toolbox" class="py-16 md:py-24 bg-dark-light/60 backdrop-blur-sm">
+            <div class="container mx-auto px-6 sm:px-8 max-w-6xl">
+                <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">九州工具集</h2>
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in">
+                        <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
+                            <i class="fa fa-mobile text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl text-white mb-2">九州云手机</h3>
+                        <p class="text-white/70 mb-4">随时随地访问您的手机应用，安全高效。</p>
+                        <a href="https://jiuzhouguoji-ysj.web.app/" target="_blank" class="inline-block text-accent hover:text-white border-b border-accent/50 hover:border-accent transition-all">立即访问</a>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.2s;">
+                        <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
+                            <i class="fa fa-paint-brush text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl text-white mb-2">九州免费CSS渐变色板</h3>
+                        <p class="text-white/70 mb-4">精美的CSS渐变色板，让您的设计更加出色。</p>
+                        <a href="https://jiuzhougroup-bsb.web.app/" target="_blank" class="inline-block text-accent hover:text-white border-b border-accent/50 hover:border-accent transition-all">立即访问</a>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.4s;">
+                        <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-4">
+                            <i class="fa fa-bar-chart text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl text-white mb-2">九州数据可视化工具</h3>
+                        <p class="text-white/70 mb-4">强大的数据可视化工具，让数据更有价值。</p>
+                        <a href="https://jiuzhougroup-sjksh.web.app/" target="_blank" class="inline-block text-accent hover:text-white border-b border-accent/50 hover:border-accent transition-all">立即访问</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-16 md:py-24 bg-black/30">
-        <div class="container mx-auto px-6 sm:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">加入九州，共创未来</h2>
-            <p class="text-lg max-w-3xl mx-auto mb-8 fade-in">我们诚邀各界精英加入九州集团，共同构建数字新纪元。</p>
-            <p class="text-lg text-accent fade-in" style="border: 2px solid #8BE9FD; padding: 10px 20px; border-radius: 8px; display: inline-block; margin: 0 auto;">商务合作邮箱：Athen@lianghuatozi.com</p>
-        </div>
-    </section>
+        <!-- 联系我们 -->
+        <section id="contact" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 sm:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl text-accent mb-4 fade-in">加入九州，共创未来</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8 fade-in">我们诚邀各界精英加入九州集团，共同构建数字新纪元。</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 fade-in" style="transition-delay: 0.2s;">
+                    <div class="flex items-center bg-dark-light/30 p-4 rounded-xl border border-accent/20">
+                        <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                            <i class="fa fa-envelope text-accent"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm text-white/60">商务合作邮箱</p>
+                            <p class="text-accent">Athen@lianghuatozi.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center bg-dark-light/30 p-4 rounded-xl border border-accent/20">
+                        <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                            <i class="fa fa-phone text-accent"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm text-white/60">商务致电</p>
+                            <p class="text-accent">+852 9061 1536</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer class="universal-footer">
-        <div class="footer-title">九州星河传送门—探索财富之旅</div>
-        <div class="portal-grid">
-            <div class="portal-item"><a href="#" class="open-manual-modal hover-accent">星际导航手册</a><p>用户须知务必查阅</p></div>
-            <div class="portal-item"><a href="#toolbox" class="hover-accent">九州工具集</a><p>实用工具集合</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup.vip/" target="_blank">九州中央殿堂</a><p>集团总览与品牌故事</p></div>
-            
-            <div class="portal-item"><a href="https://jiuzhougroup-jzsp.web.app/" target="_blank">九州战略沙盘</a><p>战略推演核心应用</p></div>
-            
-            <div class="portal-item"><a href="https://jiuzhougroup-rdtz.web.app/" target="_blank">日斗投资星域</a><p>财富交流与市场研判</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-jczf.web.app/" target="_blank">聚财众发星域</a><p>基金产品与财富管理</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-xft.web.app/" target="_blank">讯飞通星域</a><p>AI选股产品发布平台</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-jzcm.web.app/" target="_blank">九州传媒星域</a><p>品牌战役与视觉史诗</p></div>
-            <div class="portal-item"><a href="https://jiuzhougroup-xzhj.web.app/" target="_blank">贤智汇聚星域</a><p>社群运营与学院招募</p></div>
-        </div>
-        <p class="copyright">Copyright © 2025 九州集团（香港）国际控股有限公司 Designed 粤ICP备18062888号 AthenDrakvese.</p>
-    </footer>
+        <!-- 页脚 -->
+        <footer class="bg-dark-light/80 backdrop-blur-md py-12 mt-auto">
+            <div class="container mx-auto px-6 sm:px-8">
+                <div class="footer-title text-center text-accent text-xl mb-8">九州星河传送门—探索财富之旅</div>
+                <div class="portal-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 mb-10">
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="#" class="open-manual-modal text-accent hover:text-white block text-center py-2">星际导航手册</a>
+                        <p class="text-white/60 text-sm text-center mt-1">用户须知务必查阅</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="#toolbox" class="text-accent hover:text-white block text-center py-2">九州工具集</a>
+                        <p class="text-white/60 text-sm text-center mt-1">实用工具集合</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup.vip/" target="_blank" class="text-accent hover:text-white block text-center py-2">九州中央殿堂</a>
+                        <p class="text-white/60 text-sm text-center mt-1">集团总览与品牌故事</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-jzsp.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">九州战略沙盘</a>
+                        <p class="text-white/60 text-sm text-center mt-1">战略推演核心应用</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-rdtz.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">日斗投资星域</a>
+                        <p class="text-white/60 text-sm text-center mt-1">财富交流与市场研判</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-jczf.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">聚财众发星域</a>
+                        <p class="text-white/60 text-sm text-center mt-1">基金产品与财富管理</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-xft.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">讯飞通星域</a>
+                        <p class="text-white/60 text-sm text-center mt-1">AI选股产品发布平台</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-jzcm.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">九州传媒星域</a>
+                        <p class="text-white/60 text-sm text-center mt-1">品牌战役与视觉史诗</p>
+                    </div>
+                    <div class="portal-item bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/60 transition-all">
+                        <a href="https://jiuzhougroup-xzhj.web.app/" target="_blank" class="text-accent hover:text-white block text-center py-2">贤智汇聚星域</a>
+                        <p class="text-white/60 text-sm text-center mt-1">社群运营与学院招募</p>
+                    </div>
+                </div>
+                <p class="copyright text-center text-white/40 text-sm">Copyright © 2025 九州集团（香港）国际控股有限公司 Designed 粤ICP备18062888号 AthenDrakvese.</p>
+            </div>
+        </footer>
+    </div>
 
-    <div id="star-manual-modal">
-        <div class="modal-content manual-section">
-            <span class="modal-close-button close-manual-modal">&times;</span>
-            <h2 class="text-center">九州星际导航手册</h2>
+    <!-- 手册模态框 -->
+    <div id="star-manual-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-dark/90 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="modal-content bg-dark-light border border-accent/30 rounded-xl p-6 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto mx-4 transform scale-95 transition-transform duration-300">
+            <button class="close-manual-modal absolute top-4 right-4 text-white/60 hover:text-white text-xl">
+                <i class="fa fa-times"></i>
+            </button>
+            <h2 class="text-2xl md:text-3xl text-accent mb-6 text-center">九州星际导航手册</h2>
             <div class="space-y-4">
-                <div class="manual-item fade-in">
-                    <div class="manual-header" data-toggle="manual-content">
-                        <h3 class="manual-title">1. 星系图基础解读与导航指南</h3>
-                        <span class="manual-icon">></span>
+                <div class="manual-item border border-accent/20 rounded-lg overflow-hidden">
+                    <div class="manual-header bg-dark/40 p-4 flex justify-between items-center cursor-pointer">
+                        <h3 class="manual-title text-white">1. 星系图基础解读与导航指南</h3>
+                        <span class="manual-icon text-accent transition-transform duration-300">></span>
                     </div>
-                    <div class="manual-content">
+                    <div class="manual-content bg-dark/20 p-4 text-white/80 max-h-0 overflow-hidden transition-all duration-300">
                         <p>九州星河图是集团数字生态的宏观视图，每一颗星辰代表一个核心业务子域。本手册将引导您理解星系构成，并高效导航至各个业务星球：</p>
-                        <ul>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
                             <li>**中央主星：九州国际控股集团** - 集团的核心与愿景之源。</li>
                             <li>**内环轨道 (核心业务):**
-                                <ul>
+                                <ul class="list-circle pl-6 mt-1 space-y-1">
                                     <li>**九州：沙盘** - 战略推演与决策模拟，探索未来商业版图。</li>
                                     <li>**日斗投资官网** - 专业财富管理与市场深度研判，把握投资先机。</li>
                                 </ul>
                             </li>
                             <li>**中环轨道 (金融与科技):**
-                                <ul>
+                                <ul class="list-circle pl-6 mt-1 space-y-1">
                                     <li>**聚财众发官网** - 精选基金产品，提供财富管理与创新港元代币化基金。</li>
                                     <li>**讯飞通官网** - 领先 AI 选股技术，助力智能投资决策。</li>
                                 </ul>
                             </li>
                             <li>**外环轨道 (人才与品牌):**
-                                <ul>
+                                <ul class="list-circle pl-6 mt-1 space-y-1">
                                     <li>**贤智汇聚官网** - 汇聚行业精英，提供学习成长与人才招募平台。</li>
                                     <li>**九州传媒官网** - 品牌叙事与视觉盛宴，讲述集团故事。</li>
                                 </ul>
                             </li>
                             <li>**工具星站：九州工具集** - 为创造者赋能的数字百宝匣。</li>
                         </ul>
-                        <p>通过点击各行星，可直达其专属领域。</p>
+                        <p class="mt-3">通过点击各行星，可直达其专属领域。</p>
                         <p>
-                          如需更详细的交互说明，请查阅 <a href="https://jiuzhougroup.vip/documents/manual_chapter1_full.pdf" target="_blank">第一章：星图操作详解 (PDF)</a>。
+                          如需更详细的交互说明，请查阅 <a href="https://jiuzhougroup.vip/documents/manual_chapter1_full.pdf" target="_blank" class="text-accent hover:underline">第一章：星图操作详解 (PDF)</a>。
                         </p>
                     </div>
                 </div>
 
-                <div class="manual-item fade-in" style="transition-delay: 0.1s;">
-                    <div class="manual-header" data-toggle="manual-content">
-                        <h3 class="manual-title">2. 子域功能速查与服务一览</h3>
-                        <span class="manual-icon">></span>
+                <div class="manual-item border border-accent/20 rounded-lg overflow-hidden">
+                    <div class="manual-header bg-dark/40 p-4 flex justify-between items-center cursor-pointer">
+                        <h3 class="manual-title text-white">2. 子域功能速查与服务一览</h3>
+                        <span class="manual-icon text-accent transition-transform duration-300">></span>
                     </div>
-                    <div class="manual-content">
+                    <div class="manual-content bg-dark/20 p-4 text-white/80 max-h-0 overflow-hidden transition-all duration-300">
                         <p>九州生态体系涵盖广泛，以下为主要子域的速查清单，助您快速找到所需服务：</p>
-                        <ul>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
                             <li>**日斗投资：** 财富交流会、市场研判、投资策略报告。</li>
                             <li>**聚财众发：** 基金产品发行、专业财富管理、港元代币化基金服务。</li>
                             <li>**贤智汇聚：** 精英社群运营、九州学院课程、行业领袖招募。</li>
@@ -194,43 +343,43 @@
                             <li>**统一通行证：** 集团所有应用统一登录入口，身份认证与安全管理。</li>
                             <li>**九州工具集：** 免费 CSS 渐变色板、云手机、数据可视化等开发辅助工具。</li>
                         </ul>
-                        <p>
+                        <p class="mt-3">
                             点击相应子域的名称，即可访问其官方网站，获取更多详细信息。
                         </p>
                     </div>
                 </div>
 
-                <div class="manual-item fade-in" style="transition-delay: 0.2s;">
-                    <div class="manual-header" data-toggle="manual-content">
-                        <h3 class="manual-title">3. 平台安全与隐私协议概览</h3>
-                        <span class="manual-icon">></span>
+                <div class="manual-item border border-accent/20 rounded-lg overflow-hidden">
+                    <div class="manual-header bg-dark/40 p-4 flex justify-between items-center cursor-pointer">
+                        <h3 class="manual-title text-white">3. 平台安全与隐私协议概览</h3>
+                        <span class="manual-icon text-accent transition-transform duration-300">></span>
                     </div>
-                    <div class="manual-content">
+                    <div class="manual-content bg-dark/20 p-4 text-white/80 max-h-0 overflow-hidden transition-all duration-300">
                         <p>九州国际集团（香港）控股有限公司从事核心国际业务平台，凭借九州平台的优势，立足香港借助香港这个全球金融、航运、国际自由贸易中心城市之便利，为全球客户提供供应链金融、消费电子（手机、平板、电子书等）OEM/odm专业的服务。</p>
-                        <ul>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
                             <li>**数据加密：** 所有数据传输均采用行业领先的端到端加密技术。</li>
                             <li>**隐私保护：** 严格遵循用户隐私政策，未经授权不会共享您的个人信息。</li>
                             <li>**合规运营：** 我们的金融与技术服务均获得相应监管许可，确保合规透明。</li>
                             <li>**安全审计：** 定期进行第三方安全审计与漏洞扫描，持续强化系统防御能力。</li>
                         </ul>
-                        <p>
-                            请务必仔细阅读我们的 <a href="https://jiuzhougroup.vip/privacy-policy" target="_blank">隐私政策</a> 和 <a href="https://jiuzhougroup.vip/terms-of-service" target="_blank">服务条款</a>，了解您的权利和我们的责任。
+                        <p class="mt-3">
+                            请务必仔细阅读我们的 <a href="https://jiuzhougroup.vip/privacy-policy" target="_blank" class="text-accent hover:underline">隐私政策</a> 和 <a href="https://jiuzhougroup.vip/terms-of-service" target="_blank" class="text-accent hover:underline">服务条款</a>，了解您的权利和我们的责任。
                         </p>
                     </div>
                 </div>
 
-                <div class="manual-item fade-in" style="transition-delay: 0.3s;">
-                    <div class="manual-header" data-toggle="manual-content">
-                        <h3 class="manual-title">4. 联系与支持</h3>
-                        <span class="manual-icon">></span>
+                <div class="manual-item border border-accent/20 rounded-lg overflow-hidden">
+                    <div class="manual-header bg-dark/40 p-4 flex justify-between items-center cursor-pointer">
+                        <h3 class="manual-title text-white">4. 联系与支持</h3>
+                        <span class="manual-icon text-accent transition-transform duration-300">></span>
                     </div>
-                    <div class="manual-content">
+                    <div class="manual-content bg-dark/20 p-4 text-white/80 max-h-0 overflow-hidden transition-all duration-300">
                         <p>如果您在探索九州星河图或使用各项服务时遇到任何问题，欢迎通过以下渠道与我们联系：</p>
-                        <ul>
-                            <li>**商务合作邮箱：** <a href="mailto:Athen@lianghuatozi.com">Athen@lianghuatozi.com</a></li>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
+                            <li>**商务合作邮箱：** <a href="mailto:Athen@lianghuatozi.com" class="text-accent hover:underline">Athen@lianghuatozi.com</a></li>
                             <li>**商务致电：+852 9061 1536</li>
                         </ul>
-                        <p>
+                        <p class="mt-3">
                             我们的专业团队将竭诚为您提供帮助与支持。
                         </p>
                     </div>
@@ -239,6 +388,180 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Canvas 星空背景实现
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d');
+            
+            // 设置画布尺寸
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // 创建星星
+            const stars = [];
+            const numStars = 300; // 星星数量
+            
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5, // 星星大小范围
+                    speedX: (Math.random() - 0.5) * 0.1, // 水平移动速度
+                    speedY: (Math.random() - 0.5) * 0.1, // 垂直移动速度
+                    opacity: Math.random(), // 初始透明度
+                    opacitySpeed: (Math.random() - 0.5) * 0.01, // 闪烁速度
+                    color: getRandomStarColor() // 随机星星颜色
+                });
+            }
+            
+            // 随机星星颜色
+            function getRandomStarColor() {
+                const colors = [
+                    'rgba(255, 255, 255, {opacity})', // 白色
+                    'rgba(139, 233, 253, {opacity})', // 青色
+                    'rgba(255, 121, 198, {opacity})', // 粉色
+                    'rgba(189, 147, 249, {opacity})'  // 紫色
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // 星座连线阈值
+            const constellationThreshold = 100;
+            
+            // 动画循环
+            function animate() {
+                // 绘制背景渐变
+                const gradient = ctx.createRadialGradient(
+                    canvas.width / 2, canvas.height / 2, 0,
+                    canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
+                );
+                gradient.addColorStop(0, '#0d0d1a');
+                gradient.addColorStop(1, '#00001a');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制星星
+                stars.forEach(star => {
+                    // 更新星星位置
+                    star.x += star.speedX;
+                    star.y += star.speedY;
+                    
+                    // 更新星星透明度（闪烁效果）
+                    star.opacity += star.opacitySpeed;
+                    if (star.opacity > 1 || star.opacity < 0.3) {
+                        star.opacitySpeed = -star.opacitySpeed;
+                    }
+                    
+                    // 边界检查 - 星星从一侧消失，从另一侧出现
+                    if (star.x < 0) star.x = canvas.width;
+                    if (star.x > canvas.width) star.x = 0;
+                    if (star.y < 0) star.y = canvas.height;
+                    if (star.y > canvas.height) star.y = 0;
+                    
+                    // 绘制星星
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = star.color.replace('{opacity}', star.opacity);
+                    ctx.fill();
+                    ctx.closePath();
+                });
+                
+                // 绘制星座连线（星星之间的连线）
+                for (let i = 0; i < stars.length; i++) {
+                    for (let j = i + 1; j < stars.length; j++) {
+                        const dx = stars[i].x - stars[j].x;
+                        const dy = stars[i].y - stars[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < constellationThreshold) {
+                            // 计算连线的透明度（距离越近，透明度越高）
+                            const opacity = 0.2 - (distance / constellationThreshold) * 0.2;
+                            
+                            // 获取两颗星星的颜色，创建渐变效果
+                            const starColor1 = stars[i].color.split(',')[0].replace('rgba(', '');
+                            const starColor2 = stars[j].color.split(',')[0].replace('rgba(', '');
+                            
+                            // 绘制连线
+                            ctx.beginPath();
+                            ctx.moveTo(stars[i].x, stars[i].y);
+                            ctx.lineTo(stars[j].x, stars[j].y);
+                            ctx.strokeStyle = `rgba(${starColor1}, ${opacity})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                            ctx.closePath();
+                        }
+                    }
+                }
+                
+                // 递归调用动画函数，实现循环
+                requestAnimationFrame(animate);
+            } // 修复：添加缺失的闭合花括号
+            
+            // 启动动画
+            animate();
+            
+            // 滚动显示动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // 元素进入视口后，不需要再观察
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1 // 当元素10%可见时触发
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // 手册模态框控制
+            const modal = document.getElementById('star-manual-modal');
+            const openModalBtn = document.querySelector('.open-manual-modal');
+            const closeModalBtn = document.querySelector('.close-manual-modal');
+            const manualHeaders = document.querySelectorAll('.manual-header');
+            
+            if (openModalBtn) {
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    modal.querySelector('.modal-content').classList.remove('scale-95');
+                    modal.querySelector('.modal-content').classList.add('scale-100');
+                });
+            }
+            
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => {
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    modal.querySelector('.modal-content').classList.remove('scale-100');
+                    modal.querySelector('.modal-content').classList.add('scale-95');
+                });
+            }
+            
+            manualHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.manual-icon');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(90deg)';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-</html>
+</html>    
