@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiuzhou Group - Star Map</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#8BE9FD',
+                        dark: '#0d0d1a',
+                        'dark-light': '#1a1a2e',
+                        'accent-light': 'rgba(139, 233, 253, 0.2)',
+                        'pink-hint': 'rgba(255, 121, 198, 0.2)',
+                        'purple-hint': 'rgba(189, 147, 249, 0.2)',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        'noto-serif': ['"Noto Serif SC"', 'serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(139, 233, 253, 0.5)',
+                        'glow-lg': '0 0 30px rgba(139, 233, 253, 0.6)',
+                    }
+                },
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 0 15px rgba(139, 233, 253, 0.8), 0 0 30px rgba(139, 233, 253, 0.6);
+            }
+            .text-shadow-sm {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            }
+            .bg-gradient-deep {
+                background: linear-gradient(to bottom, #0d0d1a, #00001a);
+            }
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-dark text-white min-h-screen flex flex-col">
+    <!-- Canvas Star Background -->
+    <canvas id="starfield" class="absolute inset-0 z-0"></canvas>
+    
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="py-4 px-4 sm:px-6 lg:px-8 absolute top-0 left-0 w-full z-20 backdrop-blur-md bg-dark/60">
+            <nav class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 md:w-10 md:h-10">
+                        <img src="src/assets/anquanrenzheng.svg" alt="Security Certification" class="w-full h-full object-contain"/>
+                    </div>
+                    <div class="w-8 h-8 md:w-10 md:h-10">
+                        <img src="src/assets/官方认证.svg" alt="Official Certification" class="w-full h-full object-contain"/>
+                    </div>
+                    <div class="w-8 h-8 md:w-10 md:h-10">
+                        <img src="src/assets/官方认证 (1).svg" alt="Official Certification 1" class="w-full h-full object-contain"/>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold text-accent">Jiuzhou Digital Space Station</h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#core-values" class="text-white/80 hover:text-accent transition-colors">Core Values</a>
+                    <a href="#toolbox" class="text-white/80 hover:text-accent transition-colors">Toolbox</a>
+                    <a href="#contact" class="text-white/80 hover:text-accent transition-colors">Contact Us</a>
+                    <a href="index.html" class="text-white/80 hover:text-accent transition-colors">中文</a>
+                </div>
+                <button class="md:hidden text-white text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="min-h-screen flex items-center justify-center text-center relative pt-20">
+            <div class="max-w-4xl px-6">
+                <div class="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-accent hover-scale bg-dark flex items-center justify-center overflow-hidden">
+                    <img src="src/assets/earth.svg" alt="Jiuzhou Group Logo" class="w-full h-full object-contain">
+                </div>
+                <p class="text-lg md:text-xl text-accent fade-in">All in One, Wisdom Creates Future</p>
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white my-4 fade-in" style="transition-delay: 0.2s;">Jiuzhou Star Map</h2>
+                <p class="text-lg md:text-xl text-white/80 mt-6 fade-in text-shadow-sm" style="transition-delay: 0.4s;">
+                    Jiuzhou International Holdings Group focuses on digital technology, integrates multiple industrial ecosystems, and builds an open, collaborative, and win-win digital galaxy.
+                </p>
+                <a href="#core-values" class="mt-8 inline-block px-8 py-3 bg-accent/20 border border-accent text-accent rounded-full hover:bg-accent hover:text-dark transition-all duration-300 hover-scale">
+                    Start Exploring
+                </a>
+            </div>
+        </main>
+
+        <!-- Core Values -->
+        <section id="core-values" class="py-16 md:py-24 bg-dark-light/60 backdrop-blur-sm">
+            <div class="container mx-auto px-6 sm:px-8 text-center max-w-6xl">
+                <h2 class="text-3xl md:text-4xl text-accent mb-12 fade-in">Jiuzhou International Philosophy</h2>
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 text-left">
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-lightbulb-o text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">Leading with Wisdom</h3>
+                        </div>
+                        <p class="text-white/70">With forward-looking vision and innovative technology, leading industry transformation and creating infinite possibilities.</p>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.2s;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-handshake-o text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">Collaborative Symbiosis</h3>
+                        </div>
+                        <p class="text-white/70">Building an open ecosystem, working hand in hand with partners to achieve value co-creation and prosperous win-win.</p>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.4s;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-globe text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl text-white">All in One</h3>
+                        </div>
+                        <p class="text-white/70">Integrating multiple businesses, unifying digital cornerstones, forming a powerful synergy of group integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toolbox -->
+        <section id="toolbox" class="py-16 md:py-24 bg-dark-light/60 backdrop-blur-sm">
+            <div class="container mx-auto px-6 sm:px-8 max-w-6xl">
+                <h2 class="text-3xl md:text-4xl text-accent mb-12 text-center fade-in">Jiuzhou Toolbox</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in">
+                        <h3 class="text-xl text-white mb-3">Digital Analytics</h3>
+                        <p class="text-white/70">Comprehensive data analysis tools to monitor industry trends and operational efficiency.</p>
+                    </div>
+                    <div class="bg-dark/40 p-6 rounded-xl border border-accent/30 hover:border-accent/70 transition-all duration-300 hover-scale fade-in" style="transition-delay: 0.2s;">
+                        <h3 class="text-xl text-white mb-3">Ecosystem Management</h3>
+                        <p class="text-white/70">Integrated platform for managing multi-industry ecological collaboration and resource allocation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 sm:px-8 max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl text-accent mb-8 fade-in">Contact Us</h2>
+                <p class="text-white/80 mb-8 fade-in">For international cooperation and inquiries, please reach out to our global team.</p>
+                <div class="flex justify-center space-x-6 mb-8 fade-in">
+                    <a href="mailto:info@jiuzhou-intl.com" class="text-accent hover:text-white transition-colors">
+                        <i class="fa fa-envelope text-2xl"></i>
+                    </a>
+                    <a href="tel:+85212345678" class="text-accent hover:text-white transition-colors">
+                        <i class="fa fa-phone text-2xl"></i>
+                    </a>
+                </div>
+                <p class="text-white/60 text-sm fade-in">© 2025 Jiuzhou Group (Hong Kong) International Holdings Co., Ltd. All rights reserved.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Starfield Animation & Fade In Logic -->
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(139, 233, 253, ${star.opacity})`;
+                ctx.fill();
+                
+                star.y -= star.speed;
+                if (star.y < 0) star.y = canvas.height;
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        function handleFadeIn() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        initStars();
+        drawStars();
+        window.addEventListener('scroll', handleFadeIn);
+        window.addEventListener('load', handleFadeIn);
+    </script>
+</body>
+</html>
